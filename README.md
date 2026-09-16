@@ -33,6 +33,7 @@ npm run typecheck
 npm test
 npm run test:e2e
 npm run build
+npm run build:pages
 ```
 
 The browser suite uses an installed Google Chrome through Playwright's `chrome` channel. It covers desktop and mobile navigation, project filtering and details, form validation and email handoff, metadata, the resume download, responsive overflow, reduced motion, sitemap, robots, and runtime console errors.
@@ -52,9 +53,10 @@ Copy `.env.example` to `.env.local` for local configuration. Set:
 
 ```text
 NEXT_PUBLIC_SITE_URL=https://your-production-domain.example
+NEXT_PUBLIC_BASE_PATH=/repository-name
 ```
 
-This public, non-secret origin is used for canonical, Open Graph, sitemap, and robots URLs. Do not place private keys or credentials in any `NEXT_PUBLIC_*` value.
+`NEXT_PUBLIC_SITE_URL` supplies the canonical production URL. `NEXT_PUBLIC_BASE_PATH` prefixes public assets when the portfolio is hosted below a repository path, such as `/emmanuel-velo-portfolio` on GitHub Pages. Both values are public; do not place private keys or credentials in any `NEXT_PUBLIC_*` value.
 
 ## Contact-form delivery
 
@@ -70,12 +72,15 @@ python scripts/build_resume.py
 
 Copy the rebuilt file from `output/pdf/` to the public resume path only after rendering and reviewing both pages.
 
-## Deployment
+## GitHub Pages deployment
 
-No deployment is performed by this repository setup. To publish with the existing hosting configuration:
+The workflow at `.github/workflows/build-and-deploy.yml` deploys the portfolio when `master` is updated or when it is started manually from the Actions tab. It:
 
-1. Set `NEXT_PUBLIC_SITE_URL` to the final trusted HTTPS origin.
-2. Run every quality check and `npm run build`.
-3. Run `npm start` and verify the local production worker.
-4. Use the authorized OpenAI Sites hosting workflow or a compatible Cloudflare Worker deployment for `dist/server/wrangler.json`.
-5. Recheck canonical metadata, social sharing, all external project links, the resume download, and the inquiry email handoff on the production domain.
+1. Installs the locked dependencies with Node.js 22.
+2. Runs linting, TypeScript checks, and unit tests.
+3. Builds a static Next.js export in `out/` with the repository base path.
+4. Adds `.nojekyll`, uploads the Pages artifact, and deploys it through GitHub Pages.
+
+In the repository’s **Settings → Pages**, keep **Source** set to **GitHub Actions**. Commit and push the workflow and configuration changes to `master`; the published site will be available at `https://progjosh.github.io/emmanuel-velo-portfolio/` after the action succeeds.
+
+The Vinext/OpenAI Sites build remains available through `npm run build` and `npm start`. GitHub Pages specifically uses `npm run build:pages` because Pages can host static files but cannot run the Cloudflare Worker output.

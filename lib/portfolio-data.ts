@@ -31,6 +31,9 @@ export type SkillGroup = {
   evidence: string;
 };
 
+const configuredBasePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, '') ?? '';
+const publicAsset = (path: string) => `${configuredBasePath}${path}`;
+
 export const identity = {
   name: 'Emmanuel Josh Velo',
   role: 'Web Developer',
@@ -41,7 +44,7 @@ export const identity = {
   github: 'https://github.com/ProgJosh',
   linkedin: 'https://www.linkedin.com/in/emmanuel-josh-velo',
   facebook: 'https://www.facebook.com/heyiamjosh',
-  resume: '/resume/emmanuel-josh-velo-resume.pdf',
+  resume: publicAsset('/resume/emmanuel-josh-velo-resume.pdf'),
 } as const;
 
 export const navigation = [
@@ -66,7 +69,7 @@ export const projects: Project[] = [
     challenge: 'Keeping cart, stock, product, order, and admin behavior consistent across a large set of connected screens while the app runs without production credentials.',
     approach: 'I separated typed commerce rules behind a service boundary, versioned browser persistence, and covered destructive and out-of-stock states explicitly.',
     status: 'Complete interactive portfolio demo · mock authentication and payment',
-    image: '/project-images/nexacart.jpg',
+    image: publicAsset('/project-images/nexacart.jpg'),
     imageAlt: 'NexaCart marketplace homepage with category navigation, featured deals, and product listings',
     liveUrl: 'https://nexacart.joshua27emmanuel30.workers.dev/',
     sourceUrl: 'https://github.com/ProgJosh/NexaCart',
@@ -90,7 +93,7 @@ export const projects: Project[] = [
     challenge: 'Scheduling required consistent timezone handling, provider and customer overlap prevention, and permissions that change by role and appointment state.',
     approach: 'The app stores UTC timestamps, applies Asia/Manila business rules, and rechecks availability inside a serialized local save flow with IndexedDB and Web Locks fallbacks.',
     status: 'Complete persistent local demo · backend and notifications ready for integration',
-    image: '/project-images/booksync.jpg',
+    image: publicAsset('/project-images/booksync.jpg'),
     imageAlt: 'BookSync service-business dashboard showing appointments, revenue, and scheduling activity',
     imagePosition: 'center top',
     liveUrl: 'https://booking-system.joshua27emmanuel30.workers.dev/',
@@ -115,7 +118,7 @@ export const projects: Project[] = [
     challenge: 'Inventory changes needed guardrails for duplicate SKUs, negative stock, permissions, and traceability across several operational views.',
     approach: 'All mutations pass through a replaceable InventoryService, keeping business rules separate from React screens and browser persistence.',
     status: 'Complete local-first portfolio demo · production backend required for real data',
-    image: '/project-images/inventrack.jpg',
+    image: publicAsset('/project-images/inventrack.jpg'),
     imageAlt: 'InvenTrack dashboard with inventory value, stock movement, and low-stock panels',
     liveUrl: 'https://inventory-management-system.joshua27emmanuel30.workers.dev/',
     sourceUrl: 'https://github.com/ProgJosh/Inventory-Management-System',
@@ -139,7 +142,7 @@ export const projects: Project[] = [
     challenge: 'Preserving an editorial brand feel across a content-rich, multi-page shopping experience without weakening navigation or mobile usability.',
     approach: 'I created a small reusable design system, route-level metadata, structured local catalog data, and responsive commerce interactions.',
     status: 'Complete front-end demo · checkout and forms await a production backend',
-    image: '/project-images/diwa-habi.jpg',
+    image: publicAsset('/project-images/diwa-habi.jpg'),
     imageAlt: 'Diwa × Habi clothing storefront with an editorial hero and featured collection',
     imagePosition: 'center top',
     liveUrl: 'https://diwa-habi.joshua27emmanuel30.workers.dev/',
@@ -164,7 +167,7 @@ export const projects: Project[] = [
     challenge: 'Desktop and mobile packaging have different runtime, input, signing, and installation constraints even when they share the same web build.',
     approach: 'Vite produces a relative-path web build that Electron packages for Windows and Capacitor synchronizes into the Android wrapper.',
     status: 'Packaged Windows and Android test builds · no public web demo',
-    image: '/project-images/bakesmart2d.png',
+    image: publicAsset('/project-images/bakesmart2d.png'),
     imageAlt: 'BakeSmart2D illustrated bakery game splash screen',
     sourceUrl: 'https://github.com/ProgJosh/BakeSmart2D',
     targetUsers: 'Learners using a browser, Windows computer, or Android device',
@@ -187,7 +190,7 @@ export const projects: Project[] = [
     challenge: 'The system connects role permissions, property records, bookings, leases, identity requirements, and external payment behavior.',
     approach: 'I used Laravel MVC, Livewire interactions, relational data modeling, Jetstream/Sanctum foundations, and server-managed Stripe integration.',
     status: 'Working full-stack project · deployment depends on configured services',
-    image: '/project-images/properties-portal.jpg',
+    image: publicAsset('/project-images/properties-portal.jpg'),
     imageAlt: 'Properties Management Portal showing rental search and apartment listing cards',
     liveUrl: 'https://properties-management-portal.vercel.app/',
     sourceUrl: 'https://github.com/ProgJosh/Properties-Management-Portal',

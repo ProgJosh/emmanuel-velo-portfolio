@@ -1,11 +1,23 @@
 import type { NextConfig } from 'next';
 
+const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'emmanuel-velo-portfolio';
+const isGitHubPagesBuild = process.env.npm_lifecycle_event === 'build:pages'
+  || process.env.GITHUB_PAGES === 'true';
+const githubPagesBasePath = isGitHubPagesBuild
+  ? (process.env.NEXT_PUBLIC_BASE_PATH ?? `/${repositoryName}`)
+  : '';
+
 const nextConfig: NextConfig = {
-    output: 'export', // Forces Next.js to compile static HTML/CSS/JS
-  basePath: '/emmanuel-velo-portfolio', // Matches your GitHub repository name
+  ...(isGitHubPagesBuild
+    ? {
+        output: 'export' as const,
+        basePath: githubPagesBasePath,
+        trailingSlash: true,
+      }
+    : {}),
   images: {
-    unoptimized: true, // Required because Next.js image optimization needs a server
+    unoptimized: true,
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
