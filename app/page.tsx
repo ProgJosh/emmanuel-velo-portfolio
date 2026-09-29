@@ -5,7 +5,6 @@ import {
   Code2,
   Mail,
   Video,
-  PhoneCall
 } from 'lucide-react';
 import { ContactForm } from '@/components/contact-form';
 import { PortfolioErrorBoundary } from '@/components/portfolio-error-boundary';
@@ -31,7 +30,7 @@ export default function Home() {
               <a className="button button-secondary" href="https://calendly.com/progjosh" target="_blank" rel="noreferrer">Contact me <Video aria-hidden="true" /></a>
             </div>
             <div className="hero-links" aria-label="Professional links">
-              <a href={identity.resume} download>Download résumé <ArrowDownRight aria-hidden="true" /></a>
+              <a href={identity.resume} download>Résumé <ArrowDownRight aria-hidden="true" /></a>
               <a href={identity.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight aria-hidden="true" /></a>
               <a href={identity.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight aria-hidden="true" /></a>
             </div>

@@ -53,15 +53,15 @@ export function ContactForm() {
     setPreparedBody(body);
 
     await new Promise((resolve) => window.setTimeout(resolve, 450));
+    const subject = `${values.inquiryType} — ${values.fullName}`;
+    const mailto = `mailto:${identity.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     try {
-      const subject = `${values.inquiryType} — ${values.fullName}`;
-      const mailto = `mailto:${identity.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      setSubmissionState('success');
-      setStatusMessage('Your email application is opening. Review and send the message there; nothing has been sent automatically.');
       const mailLink = document.createElement('a');
       mailLink.href = mailto;
       mailLink.rel = 'noreferrer';
       mailLink.click();
+      setSubmissionState('success');
+      setStatusMessage('Your email application is opening. Review and send the message there; nothing has been sent automatically.');
     } catch {
       setSubmissionState('error');
       setStatusMessage(`The email application could not be opened. Copy the message below or email ${identity.email} directly.`);
