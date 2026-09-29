@@ -134,7 +134,7 @@ export default function Home() {
         <div className="footer-grid">
           <div><span>Contact</span><a href={`mailto:${identity.email}`}>{identity.email}</a><a href={identity.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a><a href={identity.github} target="_blank" rel="noreferrer">GitHub ↗</a></div>
           <nav aria-label="Footer navigation"><span>Navigate</span>{navigation.map((item) => <a key={item.id} href={`#${item.id}`}>{item.label}</a>)}</nav>
-          <div><span>Documents</span><a href={identity.resume} download>Download résumé</a><a href="#home">Back to top ↑</a></div>
+          <div><span>Documents</span><a href={identity.resume} download>Résumé <ArrowDownRight aria-hidden="true" /></a><a href="#home">Back to top ↑</a></div>
         </div>
         <div className="footer-bottom"><span>© {new Date().getFullYear()} {identity.name}</span><span>Designed and developed with care in the Philippines.</span></div>
       </footer>

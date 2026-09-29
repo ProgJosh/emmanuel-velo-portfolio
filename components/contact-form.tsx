@@ -47,14 +47,15 @@ export function ContactForm() {
   });
 
   const onSubmit = handleSubmit(async (values) => {
+    const body = buildInquiryBody(values);
+    const subject = `${values.inquiryType} — ${values.fullName}`;
+    const mailto = `mailto:${identity.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
     setSubmissionState('loading');
     setStatusMessage('Preparing a secure email draft…');
-    const body = buildInquiryBody(values);
     setPreparedBody(body);
 
     await new Promise((resolve) => window.setTimeout(resolve, 450));
-    const subject = `${values.inquiryType} — ${values.fullName}`;
-    const mailto = `mailto:${identity.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     try {
       const mailLink = document.createElement('a');
       mailLink.href = mailto;
