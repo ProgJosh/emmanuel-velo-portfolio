@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import { Download, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { identity, navigation } from '@/lib/portfolio-data';
 
 export function SiteNavigation() {
@@ -134,23 +135,22 @@ export function SiteNavigation() {
         ))}
       </nav>
 
-      <a className="nav-resume" href={identity.resume} download>
-        <span>Download résumé</span><Download aria-hidden="true" />
-      </a>
-
-      <Button
-        ref={toggleRef}
-        className="menu-toggle"
-        variant="ghost"
-        size="icon-lg"
-        type="button"
-        aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
-        aria-expanded={isOpen}
-        aria-controls="primary-navigation"
-        onClick={() => setIsOpen((current) => !current)}
-      >
-        {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
-      </Button>
+      <div className="header-actions">
+        <ThemeToggle />
+        <Button
+          ref={toggleRef}
+          className="menu-toggle"
+          variant="ghost"
+          size="icon-lg"
+          type="button"
+          aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isOpen}
+          aria-controls="primary-navigation"
+          onClick={() => setIsOpen((current) => !current)}
+        >
+          {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </Button>
+      </div>
     </header>
   );
 }

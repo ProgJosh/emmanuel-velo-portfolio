@@ -37,9 +37,9 @@ const publicAsset = (path: string) => `${configuredBasePath}${path}`;
 export const identity = {
   name: 'Emmanuel Josh Velo',
   role: 'Web Developer',
-  extendedRole: 'Web Developer & Software Engineer',
-  location: 'Philippines',
-  availability: 'Open to Web Developer and Software Engineer opportunities',
+  extendedRole: 'Web Developer',
+  location: 'Lubao, Philippines',
+  availability: 'Open to Web Developer opportunities',
   email: 'velojoshemmanuel30@gmail.com',
   github: 'https://github.com/ProgJosh',
   linkedin: 'https://www.linkedin.com/in/emmanuel-josh-velo',

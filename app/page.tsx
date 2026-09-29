@@ -4,6 +4,8 @@ import {
   BriefcaseBusiness,
   Code2,
   Mail,
+  Video,
+  PhoneCall
 } from 'lucide-react';
 import { ContactForm } from '@/components/contact-form';
 import { PortfolioErrorBoundary } from '@/components/portfolio-error-boundary';
@@ -26,7 +28,7 @@ export default function Home() {
             <p className="hero-intro">I design and develop reliable digital products that combine thoughtful user experience, maintainable code, and practical business functionality.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#projects">View my work <ArrowDownRight aria-hidden="true" /></a>
-              <a className="button button-secondary" href="#contact">Contact me <Mail aria-hidden="true" /></a>
+              <a className="button button-secondary" href="https://calendly.com/progjosh" target="_blank" rel="noreferrer">Contact me <Video aria-hidden="true" /></a>
             </div>
             <div className="hero-links" aria-label="Professional links">
               <a href={identity.resume} download>Download résumé <ArrowDownRight aria-hidden="true" /></a>
