@@ -70,35 +70,32 @@ export function SiteNavigation() {
 
     document.addEventListener('click', onDocumentClick);
     window.addEventListener('popstate', onHistoryChange);
+    window.addEventListener('hashchange', onHistoryChange);
     return () => {
       document.removeEventListener('click', onDocumentClick);
       window.removeEventListener('popstate', onHistoryChange);
+      window.removeEventListener('hashchange', onHistoryChange);
       if (activeScrollTimer.current) window.clearTimeout(activeScrollTimer.current);
     };
   }, [navigateToSection]);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+      if (activeScrollTarget.current) return;
+
+      const headerHeight = document.querySelector<HTMLElement>('.site-header')?.offsetHeight ?? 72;
+      const activeLine = window.scrollY + headerHeight + Math.min(window.innerHeight * 0.28, 220);
+      const current = [...navigation].reverse().find(({ id }) => {
+        const section = document.getElementById(id);
+        return section && section.getBoundingClientRect().top + window.scrollY <= activeLine;
+      });
+      if (current) setActiveSection(current.id);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-
-    const sections = navigation
-      .map(({ id }) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id && !activeScrollTarget.current) setActiveSection(visible.target.id);
-      },
-      { rootMargin: '-24% 0px -64% 0px', threshold: [0.05, 0.2, 0.6] },
-    );
-    sections.forEach((section) => observer.observe(section));
-
     return () => {
       window.removeEventListener('scroll', onScroll);
-      observer.disconnect();
     };
   }, []);
 

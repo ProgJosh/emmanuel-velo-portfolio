@@ -4,9 +4,8 @@ import {
   BriefcaseBusiness,
   Code2,
   Mail,
-  Video,
+  UsersRound,
 } from 'lucide-react';
-import { ContactForm } from '@/components/contact-form';
 import { PortfolioErrorBoundary } from '@/components/portfolio-error-boundary';
 import { ProjectShowcase } from '@/components/project-showcase';
 import { RevealController, SiteNavigation } from '@/components/site-shell';
@@ -27,7 +26,7 @@ export default function Home() {
             <p className="hero-intro">I design and develop reliable digital products that combine thoughtful user experience, maintainable code, and practical business functionality.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#projects">View my work <ArrowDownRight aria-hidden="true" /></a>
-              <a className="button button-secondary" href="https://calendly.com/progjosh" target="_blank" rel="noreferrer">Contact me <Video aria-hidden="true" /></a>
+              <a className="button button-secondary" href="#contact">Contact me <Mail aria-hidden="true" /></a>
             </div>
             <div className="hero-links" aria-label="Professional links">
               <a href={identity.resume} download>Résumé <ArrowDownRight aria-hidden="true" /></a>
@@ -112,15 +111,14 @@ export default function Home() {
             <div className="contact-copy" data-reveal>
               <p className="eyebrow">04 / Contact</p>
               <h2 id="contact-title">Let’s connect.</h2>
-              <p>If you’re hiring for a web development or software engineering role, share the position, team, and next steps. I also welcome thoughtful conversations about technology and collaboration.</p>
-              <div className="contact-direct">
-                <a href={`mailto:${identity.email}`}><Mail aria-hidden="true" /><span>Email<strong>{identity.email}</strong></span></a>
-                <a href={identity.facebook} target="_blank" rel="noreferrer"><BriefcaseBusiness aria-hidden="true" /><span>Professional profile<strong>Facebook</strong></span></a>
-                <a href={identity.linkedin} target="_blank" rel="noreferrer"><BriefcaseBusiness aria-hidden="true" /><span>Professional profile<strong>LinkedIn</strong></span></a>
-                <a href={identity.github} target="_blank" rel="noreferrer"><Code2 aria-hidden="true" /><span>Public repositories<strong>GitHub</strong></span></a>
-              </div>
+              <p>For web development roles, project conversations, or collaboration, email me directly. You can also find my work and professional updates through the links here.</p>
             </div>
-            <div data-reveal><ContactForm /></div>
+            <nav className="contact-direct" aria-label="Contact links" data-reveal>
+              <a href={`mailto:${identity.email}`}><Mail aria-hidden="true" /><span>Email<strong>{identity.email}</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
+              <a href={identity.linkedin} target="_blank" rel="noreferrer"><BriefcaseBusiness aria-hidden="true" /><span>Professional profile<strong>LinkedIn</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
+              <a href={identity.github} target="_blank" rel="noreferrer"><Code2 aria-hidden="true" /><span>Projects and source code<strong>GitHub</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
+              <a href={identity.facebook} target="_blank" rel="noreferrer"><UsersRound aria-hidden="true" /><span>Personal updates<strong>Facebook</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
+            </nav>
           </div>
         </section>
       </main>

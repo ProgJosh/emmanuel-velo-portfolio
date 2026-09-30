@@ -31,7 +31,7 @@ test('desktop navigation, project orbit, detail dialog, and metadata work', asyn
 
   await expect(page.locator('.project-orbit')).toBeVisible();
   await page.getByRole('button', { name: /NexaCart/ }).click();
-  await page.getByRole('button', { name: /View case study/ }).first().click();
+  await page.getByRole('button', { name: /View Project Details/ }).click();
   await expect(page.getByRole('dialog')).toContainText('NexaCart');
   await expect(page.getByRole('dialog').getByText('Problem / objective')).toBeVisible();
   await page.getByRole('button', { name: 'Close' }).click();
@@ -49,23 +49,15 @@ test('desktop navigation, project orbit, detail dialog, and metadata work', asyn
   expect((await request.get('/resume/emmanuel-josh-velo-resume.pdf')).status()).toBe(200);
 });
 
-test('contact form shows useful validation and prepares a real email handoff', async ({ page }) => {
+test('contact section offers direct, usable links', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Contact', exact: true }).click();
-  await page.getByRole('button', { name: 'Prepare email message' }).click();
-  await expect(page.getByText('Full name must be at least 2 characters.')).toBeVisible();
-  await expect(page.getByText('Enter a valid email address.')).toBeVisible();
-  await expect(page.getByText('Consent is required before preparing the message.')).toBeVisible();
-
-  await page.getByLabel('Full name').fill('Alex Recruiter');
-  await page.getByLabel('Email address').fill('alex@example.com');
-  await page.getByLabel('Message type').selectOption('Employment Opportunity');
-  await page.getByRole('textbox', { name: 'Message' }).fill('We are hiring a web developer to improve and maintain a responsive business application.');
-  await page.getByLabel('Preferred contact method').selectOption('Email');
-  await page.getByRole('checkbox', { name: /I consent/ }).check();
-
-  await page.getByRole('button', { name: 'Prepare email message' }).click();
-  await expect(page.getByText(/nothing has been sent automatically/i)).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Copy message' })).toBeVisible();
+  const links = page.getByRole('navigation', { name: 'Contact links' });
+  await expect(links.getByRole('link')).toHaveCount(4);
+  await expect(links.getByRole('link', { name: /Email/ })).toHaveAttribute('href', 'mailto:velojoshemmanuel30@gmail.com');
+  await expect(links.getByRole('link', { name: /LinkedIn/ })).toHaveAttribute('href', /linkedin\.com/);
+  await expect(links.getByRole('link', { name: /GitHub/ })).toHaveAttribute('href', /github\.com/);
+  await expect(links.getByRole('link', { name: /Facebook/ })).toHaveAttribute('href', /facebook\.com/);
+  await expect(page.locator('#contact form')).toHaveCount(0);
 });
 
 test('mobile navigation and responsive project fallback remain usable', async ({ page }) => {
