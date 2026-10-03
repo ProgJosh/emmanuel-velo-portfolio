@@ -4,12 +4,25 @@ import {
   BriefcaseBusiness,
   Code2,
   Mail,
+  MessageCircle,
+  PhoneCall,
   UsersRound,
 } from 'lucide-react';
 import { PortfolioErrorBoundary } from '@/components/portfolio-error-boundary';
 import { ProjectShowcase } from '@/components/project-showcase';
 import { RevealController, SiteNavigation } from '@/components/site-shell';
+import { TechnologyList } from '@/components/technology-list';
 import { identity, navigation, skillGroups } from '@/lib/portfolio-data';
+
+function InstagramMark() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 export default function Home() {
   return (
@@ -72,7 +85,7 @@ export default function Home() {
               <div><dt>Location</dt><dd>{identity.location}</dd></div>
               <div><dt>Primary role</dt><dd>{identity.role}</dd></div>
               <div><dt>Availability</dt><dd>{identity.availability}</dd></div>
-              <div><dt>Main stack</dt><dd>React, TypeScript, Laravel, PHP, MySQL, Tailwind CSS</dd></div>
+              <div><dt>Main stack</dt><dd>React, TypeScript, Next.js, Laravel, PostgreSQL, MySQL, Tailwind CSS</dd></div>
               <div><dt>Working focus</dt><dd>Responsive interfaces, business workflows, and maintainable application logic</dd></div>
             </dl>
           </div>
@@ -99,7 +112,7 @@ export default function Home() {
                 <span className="skill-index">{String(index + 1).padStart(2, '0')}</span>
                 <h3>{group.title}</h3>
                 <p>{group.description}</p>
-                <ul className="tag-list">{group.skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
+                <TechnologyList skills={group.skills} />
                 <small>{group.evidence}</small>
               </article>
             ))}
@@ -118,6 +131,9 @@ export default function Home() {
               <a href={identity.linkedin} target="_blank" rel="noreferrer"><BriefcaseBusiness aria-hidden="true" /><span>Professional profile<strong>LinkedIn</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
               <a href={identity.github} target="_blank" rel="noreferrer"><Code2 aria-hidden="true" /><span>Projects and source code<strong>GitHub</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
               <a href={identity.facebook} target="_blank" rel="noreferrer"><UsersRound aria-hidden="true" /><span>Personal updates<strong>Facebook</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
+              <a href={identity.whatsapp} target="_blank" rel="noopener noreferrer"><MessageCircle aria-hidden="true" /><span>Direct message<strong>WhatsApp</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
+              <a href={identity.viber} target="_blank" rel="noopener noreferrer"><PhoneCall aria-hidden="true" /><span>Direct message<strong>Viber</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
+              {identity.instagram && <a href={identity.instagram} target="_blank" rel="noopener noreferrer"><InstagramMark /><span>Social profile<strong>Instagram</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>}
             </nav>
           </div>
         </section>
@@ -130,7 +146,7 @@ export default function Home() {
           <p>{identity.extendedRole} · {identity.location}</p>
         </div>
         <div className="footer-grid">
-          <div><span>Contact</span><a href={`mailto:${identity.email}`}>{identity.email}</a><a href={identity.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a><a href={identity.github} target="_blank" rel="noreferrer">GitHub ↗</a></div>
+          <div><span>Contact</span><a href={`mailto:${identity.email}`}>{identity.email}</a><a href={identity.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a><a href={identity.github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={identity.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp ↗</a><a href={identity.viber} target="_blank" rel="noopener noreferrer">Viber ↗</a>{identity.instagram && <a href={identity.instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a>}</div>
           <nav aria-label="Footer navigation"><span>Navigate</span>{navigation.map((item) => <a key={item.id} href={`#${item.id}`}>{item.label}</a>)}</nav>
           <div><span>Documents</span><a href={identity.resume} download>Résumé <ArrowDownRight aria-hidden="true" /></a><a href="#home">Back to top ↑</a></div>
         </div>

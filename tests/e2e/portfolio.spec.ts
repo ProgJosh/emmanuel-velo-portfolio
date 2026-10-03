@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { identity, projects, skillGroups } from '../../lib/portfolio-data';
 
 const consoleErrors = new WeakMap<Page, string[]>();
 
@@ -12,6 +13,7 @@ test.beforeEach(async ({ page }, testInfo) => {
   await page.goto('/');
   await page.waitForLoadState('networkidle');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Web Developer');
+  await expect(page.locator('html')).toHaveClass(/\bjs\b/);
   await testInfo.attach('initial-console-errors', { body: JSON.stringify(errors), contentType: 'application/json' });
 });
 
@@ -52,12 +54,75 @@ test('desktop navigation, project orbit, detail dialog, and metadata work', asyn
 test('contact section offers direct, usable links', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Contact', exact: true }).click();
   const links = page.getByRole('navigation', { name: 'Contact links' });
-  await expect(links.getByRole('link')).toHaveCount(4);
+  await expect(links.getByRole('link')).toHaveCount(identity.instagram ? 7 : 6);
   await expect(links.getByRole('link', { name: /Email/ })).toHaveAttribute('href', 'mailto:velojoshemmanuel30@gmail.com');
   await expect(links.getByRole('link', { name: /LinkedIn/ })).toHaveAttribute('href', /linkedin\.com/);
   await expect(links.getByRole('link', { name: /GitHub/ })).toHaveAttribute('href', /github\.com/);
   await expect(links.getByRole('link', { name: /Facebook/ })).toHaveAttribute('href', /facebook\.com/);
+  await expect(links.getByRole('link', { name: /WhatsApp/ })).toHaveAttribute('href', identity.whatsapp);
+  await expect(links.getByRole('link', { name: /Viber/ })).toHaveAttribute('href', identity.viber);
+  await links.getByRole('link', { name: /Facebook/ }).focus();
+  for (const name of ['WhatsApp', 'Viber']) {
+    const link = links.getByRole('link', { name: new RegExp(name) });
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', /noopener/);
+    await page.keyboard.press('Tab');
+    await expect(link).toBeFocused();
+    await expect(link).toHaveCSS('outline-style', 'solid');
+  }
+  if (identity.instagram) await expect(links.getByRole('link', { name: /Instagram/ })).toHaveAttribute('href', identity.instagram);
+  else await expect(links.getByRole('link', { name: /Instagram/ })).toHaveCount(0);
   await expect(page.locator('#contact form')).toHaveCount(0);
+});
+
+test('recent project case studies and technology logos are usable on desktop and mobile', async ({ page, request }) => {
+  await page.locator('#projects').scrollIntoViewIfNeeded();
+  await expect(page.locator('.orbit-selector')).toHaveCount(projects.length);
+  for (const width of [1150, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    const overlap = await page.locator('.project-orbit').evaluate((orbit) => {
+      const card = orbit.querySelector('.orbit-project')!.getBoundingClientRect();
+      return [...orbit.querySelectorAll('.orbit-selector')].some((selector) => {
+        const box = selector.getBoundingClientRect();
+        return box.left < card.right && box.right > card.left && box.top < card.bottom && box.bottom > card.top;
+      });
+    });
+    expect(overlap).toBe(false);
+  }
+  for (const name of ['Alumni Gallery', 'Alder & Tide']) {
+    await page.locator('.orbit-selector').filter({ hasText: name }).click();
+    await expect(page.locator('.orbit-project h3')).toHaveText(name);
+    await page.getByRole('button', { name: 'View Project Details' }).click();
+    const dialog = page.getByRole('dialog');
+    await expect(dialog.getByRole('heading', { name, exact: true })).toBeVisible();
+    await expect(dialog).toContainText('fictional');
+    await expect(dialog.getByRole('link', { name: 'Source' })).toHaveAttribute('href', /github\.com\/ProgJosh/);
+    await page.getByRole('button', { name: 'Close' }).click();
+  }
+  const technologyLinks = page.locator('.technology-link');
+  await expect(technologyLinks).toHaveCount(skillGroups.flatMap((group) => group.skills).filter((skill) => skill.icon).length);
+  for (const name of ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'PHP', 'Next.js', 'NestJS', 'PostgreSQL', 'Prisma']) {
+    const link = technologyLinks.filter({ has: page.getByText(name, { exact: true }) });
+    const src = await link.locator('img').getAttribute('src');
+    expect(src).toMatch(/\/tech\/.*\.svg$/);
+    expect((await request.get(src!)).status()).toBe(200);
+  }
+  await page.locator('#skills').scrollIntoViewIfNeeded();
+  await technologyLinks.first().focus();
+  await expect(technologyLinks.first()).toBeFocused();
+  await expect(page.locator('.skill-group').first()).toHaveCSS('opacity', '1');
+  await page.locator('.skill-group').first().screenshot({ path: 'test-results/skills-desktop.png' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  const alumniCard = page.locator('.project-card').filter({ has: page.getByRole('heading', { name: 'Alumni Gallery', exact: true }) });
+  await alumniCard.getByRole('button', { name: 'View case study' }).click();
+  await expect(page.getByRole('dialog')).toContainText('Alumni Gallery');
+  await page.getByRole('button', { name: 'Close' }).click();
+  await page.locator('#skills').scrollIntoViewIfNeeded();
+  await expect(technologyLinks.first()).toBeVisible();
+  await page.locator('.skill-group').first().scrollIntoViewIfNeeded();
+  await expect(page.locator('.skill-group').first()).toHaveCSS('opacity', '1');
+  await page.locator('.skill-group').first().screenshot({ path: 'test-results/skills-mobile.png' });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
 });
 
 test('mobile navigation and responsive project fallback remain usable', async ({ page }) => {

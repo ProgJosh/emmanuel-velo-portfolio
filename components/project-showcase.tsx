@@ -38,7 +38,7 @@ function ProjectDetail({ project }: { project: Project }) {
   return (
     <div className="case-study">
       <div className="case-study-media">
-        <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width: 720px) 100vw, 1000px" style={{ objectFit: 'cover', objectPosition: project.imagePosition }} />
+        <Image src={project.image} alt={project.imageAlt} fill loading="eager" sizes="(max-width: 720px) 100vw, 1000px" style={{ objectFit: 'cover', objectPosition: project.imagePosition }} />
       </div>
       <div className="case-study-grid">
         <section>
@@ -163,7 +163,7 @@ export function ProjectShowcase() {
               src={activeProject.image}
               alt={activeProject.imageAlt}
               fill
-              sizes="620px"
+              sizes="580px"
               style={{ objectFit: 'cover', objectPosition: activeProject.imagePosition }}
             />
             <span className="project-status">{activeProject.status}</span>

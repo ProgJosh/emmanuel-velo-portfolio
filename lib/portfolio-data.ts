@@ -1,3 +1,5 @@
+import freelanceSnapshot from './freelance-snapshot.json' with { type: 'json' };
+
 export type Project = {
   id: string;
   name: string;
@@ -27,12 +29,19 @@ export type Project = {
 export type SkillGroup = {
   title: string;
   description: string;
-  skills: string[];
+  skills: Skill[];
   evidence: string;
 };
 
+export type Skill = {
+  name: string;
+  icon?: string;
+  evidence?: string;
+  sourceUrl?: string;
+};
+
 const configuredBasePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, '') ?? '';
-const publicAsset = (path: string) => `${configuredBasePath}${path}`;
+export const publicAsset = (path: string) => `${configuredBasePath}${path}`;
 
 export const identity = {
   name: 'Emmanuel Josh Velo',
@@ -44,6 +53,10 @@ export const identity = {
   github: 'https://github.com/ProgJosh',
   linkedin: 'https://www.linkedin.com/in/emmanuel-josh-velo',
   facebook: 'https://www.facebook.com/heyiamjosh',
+  whatsapp: 'https://wa.me/639752162057',
+  viber: 'https://viber.me/639752162057',
+  // Add the verified profile URL to enable Instagram without displaying a dead link.
+  instagram: null as string | null,
   resume: publicAsset('/resume/emmanuel-josh-velo-resume.pdf'),
 } as const;
 
@@ -56,6 +69,31 @@ export const navigation = [
 ] as const;
 
 export const projects: Project[] = [
+  {
+    id: 'alumni-gallery',
+    name: freelanceSnapshot.projects.alumni.name,
+    category: 'Alumni directory & digital yearbooks',
+    filter: 'Business systems',
+    summary: 'A searchable alumni community demo connecting yearbooks, profiles, memories, and school-led review in a responsive interface.',
+    problem: 'Help people find classmates and share memories while keeping profile verification, content visibility, and moderation understandable.',
+    role: 'Responsive frontend, directory and yearbook flows, TypeScript API, validation, and moderation workflows',
+    technologies: ['React', 'TypeScript', 'Vite', 'Bootstrap', 'Hono', 'Zod', 'PostgreSQL'],
+    features: ['Searchable directory with filters and grid/list views', 'Yearbooks, profiles, and memories', 'Registration and profile submissions', 'Role-based moderation and review queues', 'Audience controls and content status feedback'],
+    challenge: 'Keeping public discovery simple while making ownership, approval, and audience rules explicit for contributors and moderators.',
+    approach: 'I separated reusable React views from a Hono API, validated inputs with Zod, and implemented review states and role checks in the application layer.',
+    status: 'Working fictional demo · production database, uploads, and email require configuration',
+    image: publicAsset(freelanceSnapshot.projects.alumni.image),
+    imageAlt: freelanceSnapshot.projects.alumni.imageAlt,
+    imagePosition: 'center top',
+    liveUrl: freelanceSnapshot.projects.alumni.liveUrl,
+    sourceUrl: 'https://github.com/ProgJosh/Alumni-s-Gallery',
+    targetUsers: 'Alumni exploring their community and school staff reviewing contributed content',
+    responsibilities: ['Built directory, yearbook, profile, and memories screens', 'Implemented registration and contribution flows', 'Created API validation, ownership checks, and moderation states', 'Prepared PostgreSQL migrations and documented production setup'],
+    decisions: ['Labeled fictional people and stories as sample content', 'Kept the demo store separate from production PostgreSQL', 'Designed private upload and audience-aware access boundaries', 'Kept email delivery and recovery limitations documented'],
+    testing: 'The repository includes Vitest API tests and a Chrome browser-check script. TypeScript and Vite validate the build. Cloudflare hosts the fictional demo; PostgreSQL, Hyperdrive, and private R2 integration still require production configuration and verification.',
+    outcome: 'A working community-gallery demonstration with clear browsing and contribution flows, without presenting fictional identities or unverified production integrations as a real school deployment.',
+    lessons: 'Community interfaces need clear content ownership and review feedback alongside straightforward search and navigation.',
+  },
   {
     id: 'nexacart',
     name: 'NexaCart',
@@ -81,29 +119,29 @@ export const projects: Project[] = [
     lessons: 'Large product surfaces stay maintainable when domain rules and integration seams are explicit instead of being embedded inside page components.',
   },
   {
-    id: 'booksync',
-    name: 'BookSync',
-    category: 'Booking & appointment management',
+    id: 'alder-tide',
+    name: freelanceSnapshot.projects.alder.name,
+    category: 'Stay booking & reservation management',
     filter: 'Business systems',
-    summary: 'A role-aware scheduling system for service businesses, presented through the Wellora demo workspace.',
-    problem: 'Coordinate customer requests, provider schedules, availability, appointment changes, and reporting without creating time conflicts.',
-    role: 'Responsive UI, scheduling rules, role workflows, persistence, and quality assurance',
-    technologies: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS 4', 'Zod', 'Vitest', 'Playwright'],
-    features: ['Admin, staff, and customer workspaces', 'Three-step booking flow', 'Day, week, and month calendars', 'Conflict-aware scheduling', 'Reports and CSV export'],
-    challenge: 'Scheduling required consistent timezone handling, provider and customer overlap prevention, and permissions that change by role and appointment state.',
-    approach: 'The app stores UTC timestamps, applies Asia/Manila business rules, and rechecks availability inside a serialized local save flow with IndexedDB and Web Locks fallbacks.',
-    status: 'Complete persistent local demo · backend and notifications ready for integration',
-    image: publicAsset('/project-images/booksync.jpg'),
-    imageAlt: 'BookSync service-business dashboard showing appointments, revenue, and scheduling activity',
+    summary: 'A Philippine stay-booking demo guiding guests from destination search to room selection, with role-aware reservation management behind the public experience.',
+    problem: 'Keep property discovery, nightly availability, guest requests, and reservation changes consistent without presenting sample stays as real inventory.',
+    role: 'Frontend experience, reservation rules, role workflows, browser persistence, and tests',
+    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Zod', 'Vitest', 'Playwright'],
+    features: ['Destination, date, and guest search', 'Amenity filters and property galleries', 'Room selection and guest account flow', 'Nightly inventory and reservation management', 'Role-scoped management and CSV reports'],
+    challenge: 'Reservations span multiple nights and must respect room capacity, closure dates, permissions, and competing booking attempts.',
+    approach: 'I modeled occupied nights as half-open date ranges, validated inventory in the domain layer, serialized local writes, and kept reservation snapshots for reliable history.',
+    status: 'Working local-first demo · fictional properties, no real reservations or payments',
+    image: publicAsset(freelanceSnapshot.projects.alder.image),
+    imageAlt: freelanceSnapshot.projects.alder.imageAlt,
     imagePosition: 'center top',
-    liveUrl: 'https://booking-system.joshua27emmanuel30.workers.dev/',
+    liveUrl: freelanceSnapshot.projects.alder.liveUrl,
     sourceUrl: 'https://github.com/ProgJosh/Booking-System',
-    targetUsers: 'Service-business administrators, staff members, and customers',
-    responsibilities: ['Built role-aware booking and management screens', 'Implemented availability, status, and rescheduling rules', 'Added validation, persistence, exports, and responsive states', 'Created unit and browser workflow tests'],
-    decisions: ['Used half-open time intervals so adjacent appointments remain valid', 'Preserved historical service price and duration', 'Queued notification events without pretending to send external messages'],
-    testing: 'Vitest covers scheduling, validation, calendar, and service behavior. Playwright covers Chromium workflows, responsive layout, modal focus, and critical booking paths.',
-    outcome: 'A working local-first demonstration of the full appointment lifecycle with clear production-integration notes and realistic permission boundaries.',
-    lessons: 'Time, permissions, and state transitions must be designed together; treating them as separate UI concerns creates avoidable booking defects.',
+    targetUsers: 'Guests comparing stays, property managers, and reservation staff',
+    responsibilities: ['Built search, listing, property, and account screens', 'Implemented capacity, nightly inventory, and rescheduling rules', 'Created guest and management workflows with scoped permissions', 'Maintained domain and browser regression tests'],
+    decisions: ['Retained legacy appointment data during the travel redesign', 'Kept cancellations and rescheduling traceable', 'Saved payment preferences without collecting money', 'Kept queued notifications separate from real delivery'],
+    testing: 'Vitest covers travel inventory and reservation rules alongside retained appointment regression tests. Playwright covers Chrome workflows and responsive layouts. A strict TypeScript/Vite build produces Cloudflare static assets; shared backend inventory, secure authentication, and notification delivery remain integration work.',
+    outcome: 'A coherent stay-discovery and reservation demonstration that replaces the earlier BookSync presentation while preserving its underlying data and regression coverage.',
+    lessons: 'A redesign should improve the user journey without losing existing data or weakening the domain rules behind it.',
   },
   {
     id: 'inventrack',
@@ -203,12 +241,14 @@ export const projects: Project[] = [
   },
 ];
 
+const practices = (names: string[]): Skill[] => names.map((name) => ({ name }));
+
 export const skillGroups: SkillGroup[] = [
-  { title: 'Frontend development', description: 'Responsive, accessible interfaces for real workflows.', skills: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'Responsive design'], evidence: 'Used across NexaCart, BookSync, InvenTrack, Diwa × Habi, and this portfolio.' },
-  { title: 'Frameworks & libraries', description: 'Component-based interfaces and structured full-stack views.', skills: ['React', 'Laravel', 'Livewire', 'Tailwind CSS', 'Bootstrap', 'Phaser'], evidence: 'Verified in application manifests and project repositories.' },
-  { title: 'Backend & application logic', description: 'Role workflows, domain rules, validation, and service boundaries.', skills: ['PHP', 'Laravel MVC', 'Zod validation', 'REST/API integration', 'Stripe integration'], evidence: 'Properties portal, booking rules, commerce flows, and inventory services.' },
-  { title: 'Data management', description: 'Relational data and local-first persistence for demo applications.', skills: ['MySQL', 'Web Storage', 'IndexedDB', 'Data modeling', 'CSV export'], evidence: 'Laravel rental data plus typed booking, commerce, and inventory stores.' },
-  { title: 'Testing & quality', description: 'Automated and manual checks focused on user workflows.', skills: ['Vitest', 'Playwright', 'Testing Library', 'Node test runner', 'Accessibility checks'], evidence: 'Repository test suites cover business rules, responsive layouts, and critical flows.' },
-  { title: 'Deployment & tools', description: 'Repeatable builds, source control, and deployment preparation.', skills: ['Git', 'GitHub', 'Vite', 'npm', 'Composer', 'Docker', 'Cloudflare Workers', 'Render'], evidence: 'Verified through package scripts, lockfiles, and project deployment documentation.' },
-  { title: 'Cross-platform development', description: 'Shared web code packaged for desktop and mobile.', skills: ['Electron', 'Capacitor', 'Android packaging', 'Offline web builds'], evidence: 'BakeSmart2D Windows and Android workflows.' },
+  ...freelanceSnapshot.technologyGroups.map((group) => ({
+    ...group,
+    evidence: 'Select a technology to review the project repository behind it.',
+  })),
+  { title: 'Application engineering', description: 'Rules, permissions, and persistence behind the interface.', skills: practices(['Hono', 'Livewire', 'Zod validation', 'REST/API integration', 'Stripe integration', 'Web Storage', 'IndexedDB', 'Data modeling']), evidence: 'Alumni Gallery API, Laravel rental workflows, and Alder & Tide reservation rules. Production integration limits are documented in each case study.' },
+  { title: 'Testing & quality', description: 'Automated and manual checks focused on user workflows.', skills: practices(['Vitest', 'Playwright', 'Testing Library', 'Node test runner', 'Accessibility checks']), evidence: 'Repository test suites cover domain rules, responsive layouts, and critical flows.' },
+  { title: 'Cross-platform development', description: 'Shared web code packaged for desktop and mobile.', skills: practices(['Phaser', 'Electron', 'Capacitor', 'Android packaging', 'Offline web builds']), evidence: 'BakeSmart2D Windows and Android workflows.' },
 ];

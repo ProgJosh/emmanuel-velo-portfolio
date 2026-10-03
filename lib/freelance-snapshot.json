@@ -1,0 +1,168 @@
+{
+  "projects": {
+    "alumni": {
+      "name": "Alumni Gallery",
+      "image": "/project-images/alumni-home.webp",
+      "imageAlt": "Alumni Gallery home page with yearbook and alumni story previews",
+      "liveUrl": "https://alumni-s-gallery.joshua27emmanuel30.workers.dev/"
+    },
+    "alder": {
+      "name": "Alder & Tide",
+      "image": "/project-images/alder-preview.webp",
+      "imageAlt": "Alder and Tide booking demo homepage with stay search and destination imagery",
+      "liveUrl": "https://booking-system.joshua27emmanuel30.workers.dev/"
+    }
+  },
+  "technologyGroups": [
+    {
+      "title": "Languages",
+      "description": "Core languages used across interface and application work.",
+      "skills": [
+        {
+          "name": "HTML5",
+          "icon": "/tech/html5.svg",
+          "evidence": "Alumni Gallery",
+          "sourceUrl": "https://github.com/ProgJosh/Alumni-s-Gallery"
+        },
+        {
+          "name": "CSS3",
+          "icon": "/tech/css3.svg",
+          "evidence": "Alumni Gallery",
+          "sourceUrl": "https://github.com/ProgJosh/Alumni-s-Gallery"
+        },
+        {
+          "name": "JavaScript",
+          "icon": "/tech/javascript.svg",
+          "evidence": "Alder & Tide",
+          "sourceUrl": "https://github.com/ProgJosh/Booking-System"
+        },
+        {
+          "name": "TypeScript",
+          "icon": "/tech/typescript.svg",
+          "evidence": "Inventory system",
+          "sourceUrl": "https://github.com/ProgJosh/Inventory-Management-System"
+        },
+        {
+          "name": "PHP",
+          "icon": "/tech/php.svg",
+          "evidence": "Properties portal",
+          "sourceUrl": "https://github.com/ProgJosh/Properties-Management-Portal"
+        }
+      ]
+    },
+    {
+      "title": "Frontend",
+      "description": "Tools for responsive sites and application interfaces.",
+      "skills": [
+        {
+          "name": "React",
+          "icon": "/tech/react.svg",
+          "evidence": "Inventory system",
+          "sourceUrl": "https://github.com/ProgJosh/Inventory-Management-System"
+        },
+        {
+          "name": "Next.js",
+          "icon": "/tech/nextjs.svg",
+          "evidence": "Vertex Legacy",
+          "sourceUrl": "https://github.com/ProgJosh/Vertex-Legacy"
+        },
+        {
+          "name": "Tailwind CSS",
+          "icon": "/tech/tailwindcss.svg",
+          "evidence": "Inventory system",
+          "sourceUrl": "https://github.com/ProgJosh/Inventory-Management-System"
+        },
+        {
+          "name": "Bootstrap",
+          "icon": "/tech/bootstrap.svg",
+          "evidence": "Freelance portfolio",
+          "sourceUrl": "https://github.com/ProgJosh/Portfolio"
+        },
+        {
+          "name": "Vite",
+          "icon": "/tech/vitejs.svg",
+          "evidence": "Diwa x Habi",
+          "sourceUrl": "https://github.com/ProgJosh/Diwa-Habi"
+        }
+      ]
+    },
+    {
+      "title": "Backend & data",
+      "description": "Frameworks and databases used to connect the workflows behind the screens.",
+      "skills": [
+        {
+          "name": "Node.js",
+          "icon": "/tech/nodejs.svg",
+          "evidence": "Vertex Legacy",
+          "sourceUrl": "https://github.com/ProgJosh/Vertex-Legacy"
+        },
+        {
+          "name": "NestJS",
+          "icon": "/tech/nestjs.svg",
+          "evidence": "Vertex Legacy",
+          "sourceUrl": "https://github.com/ProgJosh/Vertex-Legacy"
+        },
+        {
+          "name": "Laravel",
+          "icon": "/tech/laravel.svg",
+          "evidence": "Properties portal",
+          "sourceUrl": "https://github.com/ProgJosh/Properties-Management-Portal"
+        },
+        {
+          "name": "MySQL",
+          "icon": "/tech/mysql.svg",
+          "evidence": "Properties portal",
+          "sourceUrl": "https://github.com/ProgJosh/Properties-Management-Portal"
+        },
+        {
+          "name": "PostgreSQL",
+          "icon": "/tech/postgresql.svg",
+          "evidence": "Vertex Legacy",
+          "sourceUrl": "https://github.com/ProgJosh/Vertex-Legacy"
+        },
+        {
+          "name": "Prisma",
+          "icon": "/tech/prisma.svg",
+          "evidence": "Vertex Legacy",
+          "sourceUrl": "https://github.com/ProgJosh/Vertex-Legacy"
+        }
+      ]
+    },
+    {
+      "title": "Tools & platforms",
+      "description": "Version control, containers, and hosting used to build and ship this work.",
+      "skills": [
+        {
+          "name": "Git",
+          "icon": "/tech/git.svg",
+          "evidence": "Vertex source",
+          "sourceUrl": "https://github.com/ProgJosh/Vertex-Legacy"
+        },
+        {
+          "name": "GitHub",
+          "icon": "/tech/github.svg",
+          "evidence": "Public repositories",
+          "sourceUrl": "https://github.com/ProgJosh"
+        },
+        {
+          "name": "Docker",
+          "icon": "/tech/docker.svg",
+          "evidence": "Vertex Legacy",
+          "sourceUrl": "https://github.com/ProgJosh/Vertex-Legacy"
+        },
+        {
+          "name": "Cloudflare",
+          "icon": "/tech/cloudflare.svg",
+          "evidence": "Vertex Legacy",
+          "sourceUrl": "https://github.com/ProgJosh/Vertex-Legacy"
+        },
+        {
+          "name": "Vercel",
+          "icon": "/tech/vercel.svg",
+          "evidence": "Freelance portfolio",
+          "sourceUrl": "https://github.com/ProgJosh/Portfolio"
+        }
+      ]
+    }
+  ]
+}
