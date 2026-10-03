@@ -114,7 +114,7 @@ test('recent project case studies and technology logos are usable on desktop and
   await page.locator('.skill-group').first().screenshot({ path: 'test-results/skills-desktop.png' });
   await page.setViewportSize({ width: 390, height: 844 });
   const alumniCard = page.locator('.project-card').filter({ has: page.getByRole('heading', { name: 'Alumni Gallery', exact: true }) });
-  await alumniCard.getByRole('button', { name: 'View case study' }).click();
+  await alumniCard.getByRole('button', { name: 'View Project Details', exact: true }).click();
   await expect(page.getByRole('dialog')).toContainText('Alumni Gallery');
   await page.getByRole('button', { name: 'Close' }).click();
   await page.locator('#skills').scrollIntoViewIfNeeded();
@@ -123,6 +123,41 @@ test('recent project case studies and technology logos are usable on desktop and
   await expect(page.locator('.skill-group').first()).toHaveCSS('opacity', '1');
   await page.locator('.skill-group').first().screenshot({ path: 'test-results/skills-mobile.png' });
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
+});
+
+test('project-detail buttons match across desktop and mobile', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.locator('.orbit-selector').filter({ hasText: 'InvenTrack' }).click();
+  const desktopButton = page.locator('.orbit-project .project-detail-button');
+  await expect(desktopButton).toHaveText('View Project Details');
+  await expect(desktopButton).toHaveAttribute('aria-haspopup', 'dialog');
+  const buttonStyle = (element: Element) => {
+    const style = getComputedStyle(element);
+    return { height: style.height, radius: style.borderRadius, fontSize: style.fontSize, padding: style.padding, background: style.backgroundColor, color: style.color };
+  };
+  await page.mouse.move(0, 0);
+  const desktopStyle = await desktopButton.evaluate(buttonStyle);
+  await desktopButton.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('dialog').getByRole('heading', { name: 'InvenTrack', exact: true })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+
+  for (const width of [768, 390, 320]) {
+    await page.setViewportSize({ width, height: 844 });
+    const card = page.locator('.project-card').filter({ has: page.getByRole('heading', { name: 'InvenTrack', exact: true }) });
+    const mobileButton = card.getByRole('button', { name: 'View Project Details', exact: true });
+    await expect(mobileButton).toHaveClass(/project-detail-button/);
+    await expect(mobileButton.locator('svg')).toHaveCount(1);
+    await mobileButton.scrollIntoViewIfNeeded();
+    await page.mouse.move(0, 0);
+    expect(await mobileButton.evaluate(buttonStyle)).toEqual(desktopStyle);
+    await mobileButton.click();
+    await expect(page.getByRole('dialog').getByRole('heading', { name: 'InvenTrack', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'Close', exact: true }).click();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
+  }
+  await expect(page.getByRole('button', { name: 'View case study' })).toHaveCount(0);
 });
 
 test('mobile navigation and responsive project fallback remain usable', async ({ page }) => {

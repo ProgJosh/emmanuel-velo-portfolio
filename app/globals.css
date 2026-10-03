@@ -238,9 +238,9 @@ section[id] { scroll-margin-top: 82px; }
 .project-role strong { color: #f5f3ee; }
 .tag-list { display: flex; flex-wrap: wrap; gap: .38rem; margin: 1rem 0 0; padding: 0; list-style: none; }
 .tag-list li { padding: .36rem .55rem; border: 1px solid currentColor; color: #8eaaa1; font-family: var(--font-geist-mono), monospace; font-size: .62rem; }
-.project-actions { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.2rem; }
-.project-actions > button, .project-card-copy > button { height: 42px; border-radius: 0; background: #f5f3ee; color: #13251f; }
-.project-actions > button:hover, .project-actions > button:focus-visible, .project-card-copy > button:hover, .project-card-copy > button:focus-visible { background: #ee744b; color: #fff; }
+.project-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.2rem; }
+.project-detail-button { width: fit-content; max-width: 100%; height: 44px; border-radius: 0; background: #f5f3ee; color: #13251f; }
+.project-detail-button:hover, .project-detail-button:focus-visible { background: #ee744b; color: #fff; }
 .project-links { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem; }
 .project-links a { display: inline-flex; align-items: center; gap: .25rem; color: inherit; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: .25em; font-size: .72rem; font-weight: 700; transition: color .2s ease, text-decoration-color .2s ease; }
 .project-links a:hover, .project-links a:focus-visible { color: #ff9d79; text-decoration-color: currentColor; }
@@ -331,8 +331,7 @@ section[id] { scroll-margin-top: 82px; }
   .project-card { display: flex; min-width: 0; flex-direction: column; border: 1px solid #48675f; background: #173a32; }
   .project-card-media { position: relative; height: 270px; overflow: hidden; background: #0c241e; }
   .project-card-copy { display: flex; flex: 1; flex-direction: column; padding: 1.3rem; }
-  .project-card-copy > button { width: fit-content; margin-top: 1.1rem; }
-  .project-card-copy .project-links { margin-top: 1rem; color: #e4ede9; }
+  .project-card-copy .project-links { color: #e4ede9; }
 }
 
 @media (max-width: 900px) {

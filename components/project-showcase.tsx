@@ -34,6 +34,17 @@ function ProjectLinks({ project }: { project: Project }) {
   );
 }
 
+function ProjectActions({ project, onViewDetails }: { project: Project; onViewDetails: (project: Project) => void }) {
+  return (
+    <div className="project-actions">
+      <Button className="project-detail-button" type="button" aria-haspopup="dialog" onClick={() => onViewDetails(project)}>
+        View Project Details <Maximize2 aria-hidden="true" />
+      </Button>
+      <ProjectLinks project={project} />
+    </div>
+  );
+}
+
 function ProjectDetail({ project }: { project: Project }) {
   return (
     <div className="case-study">
@@ -174,12 +185,7 @@ export function ProjectShowcase() {
             <p>{activeProject.summary}</p>
             <p className="project-role"><strong>My role:</strong> {activeProject.role}</p>
             <ul className="tag-list">{activeProject.technologies.slice(0, 4).map((item) => <li key={item}>{item}</li>)}</ul>
-            <div className="project-actions">
-              <Button type="button" onClick={() => setDetailProject(activeProject)}>
-                View Project Details <Maximize2 aria-hidden="true" />
-              </Button>
-              <ProjectLinks project={activeProject} />
-            </div>
+            <ProjectActions project={activeProject} onViewDetails={setDetailProject} />
           </div>
         </article>
 
@@ -202,8 +208,7 @@ export function ProjectShowcase() {
               <p>{project.summary}</p>
               <p className="project-role"><strong>My role:</strong> {project.role}</p>
               <ul className="tag-list">{project.technologies.slice(0, 4).map((item) => <li key={item}>{item}</li>)}</ul>
-              <Button type="button" onClick={() => setDetailProject(project)}>View case study <Maximize2 aria-hidden="true" /></Button>
-              <ProjectLinks project={project} />
+              <ProjectActions project={project} onViewDetails={setDetailProject} />
             </div>
           </article>
         ))}
