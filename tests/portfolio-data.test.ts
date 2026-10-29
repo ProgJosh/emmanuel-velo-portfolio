@@ -59,12 +59,13 @@ describe('portfolio data integrity', () => {
     expect(aiPrinciples).toHaveLength(4);
   });
 
-  it('summarizes only publicly evidenced AI tools in the skills section and links to their section', () => {
+  it('summarizes the flagged AI tools in the skills section and links to their section', () => {
     const group = skillGroups.find((entry) => entry.title === 'AI-assisted development');
     expect(group).toBeDefined();
-    const evidenced = aiToolGroups.flatMap((entry) => entry.tools).filter((tool) => tool.evidenceUrl).map((tool) => tool.name);
-    expect(group!.skills.map((skill) => skill.name)).toEqual(evidenced);
-    expect(evidenced).not.toContain('Amazon Q Developer');
+    const flagged = aiToolGroups.flatMap((entry) => entry.tools).filter((tool) => tool.inSkills).map((tool) => tool.name);
+    expect(flagged.length).toBeGreaterThan(0);
+    expect(group!.skills.map((skill) => skill.name)).toEqual(flagged);
+    expect(flagged).toEqual(expect.arrayContaining(['Claude Code', 'Amazon Q Developer', 'OpenAI Codex', 'OpenCode']));
     for (const skill of group!.skills) {
       expect(navigation.some((item) => item.id === skill.anchor)).toBe(true);
       expect(skill.sourceUrl).toBeUndefined();

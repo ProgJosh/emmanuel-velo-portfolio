@@ -123,7 +123,7 @@ export default function Home() {
         <section className="section ai-section" id="ai-tools" aria-labelledby="ai-tools-title">
           <div className="section-header" data-reveal>
             <div><p className="eyebrow">04 / AI-assisted development</p><h2 id="ai-tools-title">AI coding agents, used with engineering judgment.</h2></div>
-            <p>I use agents to move faster on planning, scaffolding, testing, and review, then verify the result myself. These are the tools I have worked with and the traces they left in my repositories.</p>
+            <p>I use agents to move faster on planning, scaffolding, testing, and review, then verify the result myself. These are the tools I have worked with, with the repository trace where one exists.</p>
           </div>
           <AiTools />
         </section>

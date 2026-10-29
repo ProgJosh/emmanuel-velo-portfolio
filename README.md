@@ -48,7 +48,7 @@ Verified sources: `Portfolio/index.html`, its Alumni and Alder detail pages, and
 
 ## Updating the AI tools section
 
-The agents shown in the AI tools section live in `aiToolGroups` in `lib/portfolio-data.ts`. Add an entry only when it leaves a verifiable trace: a commit trailer, a committed config or guidance file, or a documented workspace setup. Link `evidenceUrl` to a public GitHub page; the unit test rejects links to the private freelance `Portfolio` repository. Tools with no public trace omit `evidenceUrl` and say so in `evidence`.
+The agents shown in the AI tools section live in `aiToolGroups` in `lib/portfolio-data.ts`. Prefer entries that leave a verifiable trace: a commit trailer, a committed config or guidance file, or a documented workspace setup. Link `evidenceUrl` to a public GitHub page; the unit test rejects links to the private freelance `Portfolio` repository. Tools with no public trace omit `evidenceUrl` and say so in `evidence`. Set `inSkills: true` on a tool to list it in the Skills section summary, and only for tools used hands-on.
 
 ## Quality checks
 

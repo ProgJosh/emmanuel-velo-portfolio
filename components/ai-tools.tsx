@@ -2,9 +2,10 @@ import {
   ArrowUpRight,
   Blocks,
   Bot,
+  Code2,
   GitPullRequest,
-  GraduationCap,
   SquareTerminal,
+  Terminal,
   Wrench,
   type LucideIcon,
 } from 'lucide-react';
@@ -14,8 +15,9 @@ const toolIcons: Record<AiTool['id'], LucideIcon> = {
   'claude-code': SquareTerminal,
   'github-copilot': GitPullRequest,
   'openai-sites': Blocks,
-  'neon-agent-skills': GraduationCap,
   'amazon-q': Bot,
+  'openai-codex': Code2,
+  opencode: Terminal,
   'kilo-code': Wrench,
 };
 
@@ -74,7 +76,7 @@ export function AiTools() {
             <h3 id={`ai-group-${group.id}`}>{group.title}</h3>
             <p>{group.description}</p>
           </div>
-          <ul className="ai-grid">
+          <ul className="ai-grid" data-count={group.tools.length}>
             {group.tools.map((tool) => (
               <AiToolCard key={tool.id} tool={tool} />
             ))}

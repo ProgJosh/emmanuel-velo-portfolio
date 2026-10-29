@@ -43,7 +43,7 @@ export type Skill = {
 };
 
 export type AiTool = {
-  id: 'claude-code' | 'github-copilot' | 'openai-sites' | 'neon-agent-skills' | 'amazon-q' | 'kilo-code';
+  id: 'claude-code' | 'github-copilot' | 'openai-sites' | 'amazon-q' | 'openai-codex' | 'opencode' | 'kilo-code';
   name: string;
   maker: string;
   kind: string;
@@ -51,6 +51,8 @@ export type AiTool = {
   projects: string[];
   evidence: string;
   evidenceUrl?: string;
+  // Shown in the Skills section summary. Set only for tools I use hands-on.
+  inSkills?: boolean;
 };
 
 export type AiToolGroup = {
@@ -276,6 +278,7 @@ export const aiToolGroups: AiToolGroup[] = [
     tools: [
       {
         id: 'claude-code',
+        inSkills: true,
         name: 'Claude Code',
         maker: 'Anthropic',
         kind: 'Agentic coding assistant',
@@ -286,6 +289,7 @@ export const aiToolGroups: AiToolGroup[] = [
       },
       {
         id: 'github-copilot',
+        inSkills: true,
         name: 'GitHub Copilot',
         maker: 'GitHub',
         kind: 'In-editor pair programmer',
@@ -296,6 +300,7 @@ export const aiToolGroups: AiToolGroup[] = [
       },
       {
         id: 'openai-sites',
+        inSkills: true,
         name: 'OpenAI Sites',
         maker: 'OpenAI',
         kind: 'AI site scaffolding',
@@ -309,26 +314,37 @@ export const aiToolGroups: AiToolGroup[] = [
   {
     id: 'upskilling',
     title: 'Explored while upskilling',
-    description: 'Tools I set up to learn new platforms and compare how coding agents work.',
+    description: 'Tools I set up to learn agent-driven workflows and compare how coding agents work.',
     tools: [
       {
-        id: 'neon-agent-skills',
-        name: 'Neon agent skills',
-        maker: 'Neon',
-        kind: 'Agent skills for serverless Postgres',
-        usedFor: 'Installed Neon’s official skills for Postgres, branching, Auth, Functions, and storage so an agent could guide me through serverless Postgres workflows.',
-        projects: ['Serverless Postgres learning'],
-        evidence: 'Skills installed from the neondatabase/agent-skills package.',
-        evidenceUrl: 'https://github.com/neondatabase/agent-skills',
-      },
-      {
         id: 'amazon-q',
+        inSkills: true,
         name: 'Amazon Q Developer',
         maker: 'AWS',
         kind: 'AI coding assistant',
         usedFor: 'Evaluated as an alternative AI coding assistant, with a project rules folder set up in the workspace.',
         projects: ['Tool evaluation'],
         evidence: 'Local workspace configuration only; no public repository link.',
+      },
+      {
+        id: 'openai-codex',
+        inSkills: true,
+        name: 'OpenAI Codex',
+        maker: 'OpenAI',
+        kind: 'Coding agent',
+        usedFor: 'Worked with OpenAI’s coding agent for drafting and reviewing code changes while building my skills with agent-driven workflows.',
+        projects: ['Hands-on practice'],
+        evidence: 'Local installation and configuration only; no public repository link.',
+      },
+      {
+        id: 'opencode',
+        inSkills: true,
+        name: 'OpenCode',
+        maker: 'Open source',
+        kind: 'Terminal coding agent',
+        usedFor: 'Worked with the open-source terminal agent to learn how a model-agnostic, command-line workflow compares with editor-based assistants.',
+        projects: ['Hands-on practice'],
+        evidence: 'Local installation and configuration only; no public repository link.',
       },
       {
         id: 'kilo-code',
@@ -363,8 +379,8 @@ export const skillGroups: SkillGroup[] = [
   {
     title: 'AI-assisted development',
     description: 'Directing coding agents, then verifying the result with tests.',
-    // Only tools with a public repository trace are listed here; the rest stay in the AI tools section.
-    skills: aiToolGroups.flatMap((group) => group.tools).filter((tool) => tool.evidenceUrl).map((tool) => ({ name: tool.name, anchor: 'ai-tools' })),
-    evidence: 'Each tool links to the AI tools section, where the repository trace behind it is listed.',
+    // Tools flagged inSkills; each tag jumps to the AI tools section, which states the evidence for it.
+    skills: aiToolGroups.flatMap((group) => group.tools).filter((tool) => tool.inSkills).map((tool) => ({ name: tool.name, anchor: 'ai-tools' })),
+    evidence: 'Each tool links to the AI tools section, which states what it was used for and the evidence available.',
   },
 ];
