@@ -40,6 +40,29 @@ export type Skill = {
   sourceUrl?: string;
 };
 
+export type AiTool = {
+  id: 'claude-code' | 'github-copilot' | 'openai-sites' | 'neon-agent-skills' | 'amazon-q' | 'kilo-code';
+  name: string;
+  maker: string;
+  kind: string;
+  usedFor: string;
+  projects: string[];
+  evidence: string;
+  evidenceUrl?: string;
+};
+
+export type AiToolGroup = {
+  id: 'projects' | 'upskilling';
+  title: string;
+  description: string;
+  tools: AiTool[];
+};
+
+export type AiPrinciple = {
+  title: string;
+  description: string;
+};
+
 const configuredBasePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, '') ?? '';
 export const publicAsset = (path: string) => `${configuredBasePath}${path}`;
 
@@ -65,6 +88,7 @@ export const navigation = [
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },
   { id: 'skills', label: 'Skills' },
+  { id: 'ai-tools', label: 'AI Tools' },
   { id: 'contact', label: 'Contact' },
 ] as const;
 
@@ -251,4 +275,87 @@ export const skillGroups: SkillGroup[] = [
   { title: 'Application engineering', description: 'Rules, permissions, and persistence behind the interface.', skills: practices(['Hono', 'Livewire', 'Zod validation', 'REST/API integration', 'Stripe integration', 'Web Storage', 'IndexedDB', 'Data modeling']), evidence: 'Alumni Gallery API, Laravel rental workflows, and Alder & Tide reservation rules. Production integration limits are documented in each case study.' },
   { title: 'Testing & quality', description: 'Automated and manual checks focused on user workflows.', skills: practices(['Vitest', 'Playwright', 'Testing Library', 'Node test runner', 'Accessibility checks']), evidence: 'Repository test suites cover domain rules, responsive layouts, and critical flows.' },
   { title: 'Cross-platform development', description: 'Shared web code packaged for desktop and mobile.', skills: practices(['Phaser', 'Electron', 'Capacitor', 'Android packaging', 'Offline web builds']), evidence: 'BakeSmart2D Windows and Android workflows.' },
+];
+
+// Every entry cites a trace that exists in a repository or workspace, so the list stays verifiable.
+export const aiToolGroups: AiToolGroup[] = [
+  {
+    id: 'projects',
+    title: 'Used in project work',
+    description: 'Agents that contributed to code or configuration in my repositories.',
+    tools: [
+      {
+        id: 'claude-code',
+        name: 'Claude Code',
+        maker: 'Anthropic',
+        kind: 'Agentic coding assistant',
+        usedFor: 'Planning multi-file changes, refactoring, writing tests, and reviewing diffs. Repository guidance in AGENTS.md and CLAUDE.md keeps the agent aligned with this project’s conventions.',
+        projects: ['This portfolio', 'Freelance portfolio'],
+        evidence: 'AGENTS.md and CLAUDE.md in this repository.',
+        evidenceUrl: 'https://github.com/ProgJosh/emmanuel-velo-portfolio/blob/master/CLAUDE.md',
+      },
+      {
+        id: 'github-copilot',
+        name: 'GitHub Copilot',
+        maker: 'GitHub',
+        kind: 'In-editor pair programmer',
+        usedFor: 'Suggestions and commit assistance while building the Laravel rental platform, including the property seeder and payment-option improvements.',
+        projects: ['Properties Management Portal'],
+        evidence: 'Commits co-authored with Copilot in the project history.',
+        evidenceUrl: 'https://github.com/ProgJosh/Properties-Management-Portal/commit/c58d52061546fed157b5c173957a2f8dd7910c98',
+      },
+      {
+        id: 'openai-sites',
+        name: 'OpenAI Sites',
+        maker: 'OpenAI',
+        kind: 'AI site scaffolding',
+        usedFor: 'Generated the Vite and Cloudflare Worker-compatible project setup and hosting configuration, which I then extended and verified with tests.',
+        projects: ['NexaCart', 'This portfolio'],
+        evidence: 'Generated .openai/hosting.json and the Sites Vite plugin in both repositories.',
+        evidenceUrl: 'https://github.com/ProgJosh/NexaCart/blob/main/.openai/hosting.json',
+      },
+    ],
+  },
+  {
+    id: 'upskilling',
+    title: 'Explored while upskilling',
+    description: 'Tools I set up to learn new platforms and compare how coding agents work.',
+    tools: [
+      {
+        id: 'neon-agent-skills',
+        name: 'Neon agent skills',
+        maker: 'Neon',
+        kind: 'Agent skills for serverless Postgres',
+        usedFor: 'Installed Neon’s official skills for Postgres, branching, Auth, Functions, and storage so an agent could guide me through serverless Postgres workflows.',
+        projects: ['Serverless Postgres learning'],
+        evidence: 'Skills installed from the neondatabase/agent-skills package.',
+        evidenceUrl: 'https://github.com/neondatabase/agent-skills',
+      },
+      {
+        id: 'amazon-q',
+        name: 'Amazon Q Developer',
+        maker: 'AWS',
+        kind: 'AI coding assistant',
+        usedFor: 'Evaluated as an alternative AI coding assistant, with a project rules folder set up in the workspace.',
+        projects: ['Tool evaluation'],
+        evidence: 'Local workspace configuration only; no public repository link.',
+      },
+      {
+        id: 'kilo-code',
+        name: 'Kilo Code',
+        maker: 'Kilo',
+        kind: 'Open-source coding agent',
+        usedFor: 'Tried its Agent Manager for organizing separate coding sessions inside the editor.',
+        projects: ['Tool evaluation'],
+        evidence: 'Local workspace configuration only; no public repository link.',
+      },
+    ],
+  },
+];
+
+export const aiPrinciples: AiPrinciple[] = [
+  { title: 'Scope', description: 'I define the problem, constraints, and acceptance criteria before writing any prompt.' },
+  { title: 'Delegate', description: 'Agents draft scaffolding, repetitive code, tests, and documentation inside bounded tasks.' },
+  { title: 'Verify', description: 'Linting, type checks, unit tests, and browser tests run on every change before it ships.' },
+  { title: 'Own', description: 'I read each diff and keep integration limits honest in the case studies.' },
 ];

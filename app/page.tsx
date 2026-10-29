@@ -8,6 +8,7 @@ import {
   PhoneCall,
   UsersRound,
 } from 'lucide-react';
+import { AiTools } from '@/components/ai-tools';
 import { PortfolioErrorBoundary } from '@/components/portfolio-error-boundary';
 import { ProjectShowcase } from '@/components/project-showcase';
 import { RevealController, SiteNavigation } from '@/components/site-shell';
@@ -119,10 +120,18 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="section ai-section" id="ai-tools" aria-labelledby="ai-tools-title">
+          <div className="section-header" data-reveal>
+            <div><p className="eyebrow">04 / AI-assisted development</p><h2 id="ai-tools-title">AI coding agents, used with engineering judgment.</h2></div>
+            <p>I use agents to move faster on planning, scaffolding, testing, and review, then verify the result myself. These are the tools I have worked with and the traces they left in my repositories.</p>
+          </div>
+          <AiTools />
+        </section>
+
         <section className="section contact-section" id="contact" aria-labelledby="contact-title">
           <div className="contact-layout">
             <div className="contact-copy" data-reveal>
-              <p className="eyebrow">04 / Contact</p>
+              <p className="eyebrow">05 / Contact</p>
               <h2 id="contact-title">Let’s connect.</h2>
               <p>For web development roles, project conversations, or collaboration, email me directly. You can also find my work and professional updates through the links here.</p>
             </div>

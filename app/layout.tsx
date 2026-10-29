@@ -58,7 +58,7 @@ const personSchema = {
   email: 'mailto:velojoshemmanuel30@gmail.com',
   address: { '@type': 'PostalAddress', addressCountry: 'PH' },
   sameAs: ['https://github.com/ProgJosh', 'https://www.linkedin.com/in/emmanuel-josh-velo', 'https://www.facebook.com/heyiamjosh'],
-  knowsAbout: ['Web development', 'Software engineering', 'Responsive design', 'React', 'TypeScript', 'Laravel', 'PHP', 'MySQL'],
+  knowsAbout: ['Web development', 'Software engineering', 'Responsive design', 'React', 'TypeScript', 'Laravel', 'PHP', 'MySQL', 'AI-assisted development'],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -9,6 +9,7 @@ A professional, responsive portfolio for Emmanuel Josh Velo, presenting verified
 - Seven evidence-based case studies, including Alumni Gallery and the current Alder & Tide booking project
 - Local technology logos with readable names and repository evidence, matching the freelance portfolio
 - Desktop orbital project explorer with a conventional responsive grid fallback
+- AI-assisted development section listing the coding agents used in project work and upskilling, each tied to a repository or workspace trace
 - Accessible project-detail dialog and keyboard-friendly project controls
 - Direct email and professional contact links
 - Downloadable two-page PDF resume
@@ -44,6 +45,10 @@ The sync imports the Alumni Gallery and Alder & Tide names, demo links, optimize
 Review the resulting Git diff before committing. The script fails if the expected HTML structure changes; it never modifies the freelance portfolio or deploys either site. It refreshes these two tracked projects and technology groups, but does not automatically discover new projects or rewrite technical claims. Add new case studies and review changed project responsibilities, stacks, test results, and production limits in `lib/portfolio-data.ts` when the underlying apps change. Alder & Tide replaces the earlier BookSync entry because both refer to the same booking repository and live URL.
 
 Verified sources: `Portfolio/index.html`, its Alumni and Alder detail pages, and the local Alumni Gallery, Booking System, and Vertex Legacy manifests/documentation. Newer Next.js, NestJS, PostgreSQL, and Prisma skills are supported by Vertex Legacy; they link directly to its repository without copying financial or client claims into this portfolio.
+
+## Updating the AI tools section
+
+The agents shown in the AI tools section live in `aiToolGroups` in `lib/portfolio-data.ts`. Add an entry only when it leaves a verifiable trace: a commit trailer, a committed config or guidance file, or a documented workspace setup. Link `evidenceUrl` to a public GitHub page; the unit test rejects links to the private freelance `Portfolio` repository. Tools with no public trace omit `evidenceUrl` and say so in `evidence`.
 
 ## Quality checks
 

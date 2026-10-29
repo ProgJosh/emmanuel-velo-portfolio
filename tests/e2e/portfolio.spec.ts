@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { identity, projects, skillGroups } from '../../lib/portfolio-data';
+import { aiPrinciples, aiToolGroups, identity, projects, skillGroups } from '../../lib/portfolio-data';
 
 const consoleErrors = new WeakMap<Page, string[]>();
 
@@ -24,7 +24,7 @@ test.afterEach(async ({ page }, testInfo) => {
 });
 
 test('desktop navigation, project orbit, detail dialog, and metadata work', async ({ page, request }) => {
-  await expect(page.locator('.site-nav a')).toHaveCount(5);
+  await expect(page.locator('.site-nav a')).toHaveCount(6);
   const primaryNav = page.getByRole('navigation', { name: 'Primary navigation' });
   await primaryNav.getByRole('link', { name: 'Projects', exact: true }).click();
   await expect(page).toHaveURL(/#projects$/);
@@ -49,6 +49,34 @@ test('desktop navigation, project orbit, detail dialog, and metadata work', asyn
   expect((await request.get('/robots.txt')).status()).toBe(200);
   expect((await request.get('/sitemap.xml')).status()).toBe(200);
   expect((await request.get('/resume/emmanuel-josh-velo-resume.pdf')).status()).toBe(200);
+});
+
+test('AI-assisted development section lists each agent with evidence and stays responsive', async ({ page }) => {
+  const tools = aiToolGroups.flatMap((group) => group.tools);
+  await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'AI Tools', exact: true }).click();
+  await expect(page).toHaveURL(/#ai-tools$/);
+  await expect(page.locator('#ai-tools')).toBeInViewport();
+  await expect(page.getByRole('heading', { level: 2, name: /AI coding agents/ })).toBeVisible();
+  await expect(page.locator('.ai-card')).toHaveCount(tools.length);
+  for (const tool of tools) {
+    const card = page.locator('.ai-card').filter({ has: page.getByRole('heading', { name: tool.name, exact: true }) });
+    await expect(card).toHaveCount(1);
+    await expect(card).toContainText(tool.usedFor);
+    const evidence = card.locator('.ai-evidence a');
+    if (tool.evidenceUrl) {
+      await expect(evidence).toHaveAttribute('href', tool.evidenceUrl);
+      await expect(evidence).toHaveAttribute('target', '_blank');
+      await expect(evidence).toHaveAttribute('rel', /noopener/);
+    } else {
+      await expect(evidence).toHaveCount(0);
+      await expect(card.locator('.ai-evidence')).toContainText(tool.evidence);
+    }
+  }
+  await expect(page.locator('.ai-principles li')).toHaveCount(aiPrinciples.length);
+  for (const width of [1280, 768, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
+  }
 });
 
 test('contact section offers direct, usable links', async ({ page }) => {

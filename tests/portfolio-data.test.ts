@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { identity, navigation, projects, publicAsset, skillGroups } from '../lib/portfolio-data';
+import { aiPrinciples, aiToolGroups, identity, navigation, projects, publicAsset, skillGroups } from '../lib/portfolio-data';
 
 describe('portfolio data integrity', () => {
   it('uses unique navigation and project identifiers', () => {
@@ -39,6 +39,24 @@ describe('portfolio data integrity', () => {
       expect(project.technologies).toContain('TypeScript');
       expect(project.image).toMatch(/\.webp$/);
     }
+  });
+
+  it('documents every AI agent with a purpose, project context, and verifiable evidence', () => {
+    const tools = aiToolGroups.flatMap((group) => group.tools);
+    expect(tools.length).toBeGreaterThanOrEqual(3);
+    expect(new Set(tools.map((tool) => tool.id)).size).toBe(tools.length);
+    for (const tool of tools) {
+      expect(tool.usedFor.length).toBeGreaterThan(40);
+      expect(tool.projects.length).toBeGreaterThan(0);
+      expect(tool.evidence).toBeTruthy();
+      if (tool.evidenceUrl) {
+        expect(tool.evidenceUrl).toMatch(/^https:\/\/github\.com\//);
+        // The freelance Portfolio repository is private, so a public visitor could not open it.
+        expect(tool.evidenceUrl).not.toMatch(/github\.com\/ProgJosh\/Portfolio(\/|$)/);
+      }
+    }
+    expect(navigation.some((item) => item.id === 'ai-tools')).toBe(true);
+    expect(aiPrinciples).toHaveLength(4);
   });
 
   it('uses local technology logos with readable labels and project evidence', () => {
