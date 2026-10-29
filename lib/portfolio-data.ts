@@ -38,6 +38,8 @@ export type Skill = {
   icon?: string;
   evidence?: string;
   sourceUrl?: string;
+  // In-page section id, for skills that point to a section instead of an external source.
+  anchor?: string;
 };
 
 export type AiTool = {
@@ -265,18 +267,6 @@ export const projects: Project[] = [
   },
 ];
 
-const practices = (names: string[]): Skill[] => names.map((name) => ({ name }));
-
-export const skillGroups: SkillGroup[] = [
-  ...freelanceSnapshot.technologyGroups.map((group) => ({
-    ...group,
-    evidence: 'Select a technology to review the project repository behind it.',
-  })),
-  { title: 'Application engineering', description: 'Rules, permissions, and persistence behind the interface.', skills: practices(['Hono', 'Livewire', 'Zod validation', 'REST/API integration', 'Stripe integration', 'Web Storage', 'IndexedDB', 'Data modeling']), evidence: 'Alumni Gallery API, Laravel rental workflows, and Alder & Tide reservation rules. Production integration limits are documented in each case study.' },
-  { title: 'Testing & quality', description: 'Automated and manual checks focused on user workflows.', skills: practices(['Vitest', 'Playwright', 'Testing Library', 'Node test runner', 'Accessibility checks']), evidence: 'Repository test suites cover domain rules, responsive layouts, and critical flows.' },
-  { title: 'Cross-platform development', description: 'Shared web code packaged for desktop and mobile.', skills: practices(['Phaser', 'Electron', 'Capacitor', 'Android packaging', 'Offline web builds']), evidence: 'BakeSmart2D Windows and Android workflows.' },
-];
-
 // Every entry cites a trace that exists in a repository or workspace, so the list stays verifiable.
 export const aiToolGroups: AiToolGroup[] = [
   {
@@ -358,4 +348,23 @@ export const aiPrinciples: AiPrinciple[] = [
   { title: 'Delegate', description: 'Agents draft scaffolding, repetitive code, tests, and documentation inside bounded tasks.' },
   { title: 'Verify', description: 'Linting, type checks, unit tests, and browser tests run on every change before it ships.' },
   { title: 'Own', description: 'I read each diff and keep integration limits honest in the case studies.' },
+];
+
+const practices = (names: string[]): Skill[] => names.map((name) => ({ name }));
+
+export const skillGroups: SkillGroup[] = [
+  ...freelanceSnapshot.technologyGroups.map((group) => ({
+    ...group,
+    evidence: 'Select a technology to review the project repository behind it.',
+  })),
+  { title: 'Application engineering', description: 'Rules, permissions, and persistence behind the interface.', skills: practices(['Hono', 'Livewire', 'Zod validation', 'REST/API integration', 'Stripe integration', 'Web Storage', 'IndexedDB', 'Data modeling']), evidence: 'Alumni Gallery API, Laravel rental workflows, and Alder & Tide reservation rules. Production integration limits are documented in each case study.' },
+  { title: 'Testing & quality', description: 'Automated and manual checks focused on user workflows.', skills: practices(['Vitest', 'Playwright', 'Testing Library', 'Node test runner', 'Accessibility checks']), evidence: 'Repository test suites cover domain rules, responsive layouts, and critical flows.' },
+  { title: 'Cross-platform development', description: 'Shared web code packaged for desktop and mobile.', skills: practices(['Phaser', 'Electron', 'Capacitor', 'Android packaging', 'Offline web builds']), evidence: 'BakeSmart2D Windows and Android workflows.' },
+  {
+    title: 'AI-assisted development',
+    description: 'Directing coding agents, then verifying the result with tests.',
+    // Only tools with a public repository trace are listed here; the rest stay in the AI tools section.
+    skills: aiToolGroups.flatMap((group) => group.tools).filter((tool) => tool.evidenceUrl).map((tool) => ({ name: tool.name, anchor: 'ai-tools' })),
+    evidence: 'Each tool links to the AI tools section, where the repository trace behind it is listed.',
+  },
 ];

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
 import { publicAsset, type Skill } from '@/lib/portfolio-data';
 
 export function TechnologyList({ skills }: { skills: Skill[] }) {
@@ -13,6 +13,12 @@ export function TechnologyList({ skills }: { skills: Skill[] }) {
               <span className="technology-copy"><strong>{skill.name}</strong><small>{skill.evidence}</small></span>
               <ArrowUpRight aria-hidden="true" />
               <span className="sr-only"> (project source, opens in a new tab)</span>
+            </a>
+          ) : skill.anchor ? (
+            <a className="practice-tag practice-link" href={`#${skill.anchor}`}>
+              {skill.name}
+              <ArrowDownRight aria-hidden="true" />
+              <span className="sr-only"> (jumps to its section on this page)</span>
             </a>
           ) : <span className="practice-tag">{skill.name}</span>}
         </li>

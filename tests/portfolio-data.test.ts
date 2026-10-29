@@ -59,6 +59,18 @@ describe('portfolio data integrity', () => {
     expect(aiPrinciples).toHaveLength(4);
   });
 
+  it('summarizes only publicly evidenced AI tools in the skills section and links to their section', () => {
+    const group = skillGroups.find((entry) => entry.title === 'AI-assisted development');
+    expect(group).toBeDefined();
+    const evidenced = aiToolGroups.flatMap((entry) => entry.tools).filter((tool) => tool.evidenceUrl).map((tool) => tool.name);
+    expect(group!.skills.map((skill) => skill.name)).toEqual(evidenced);
+    expect(evidenced).not.toContain('Amazon Q Developer');
+    for (const skill of group!.skills) {
+      expect(navigation.some((item) => item.id === skill.anchor)).toBe(true);
+      expect(skill.sourceUrl).toBeUndefined();
+    }
+  });
+
   it('uses local technology logos with readable labels and project evidence', () => {
     const skills = skillGroups.flatMap((group) => group.skills);
     for (const skill of skills.filter((item) => item.icon)) {

@@ -79,6 +79,17 @@ test('AI-assisted development section lists each agent with evidence and stays r
   }
 });
 
+test('AI skill tags in the skills section jump to the AI tools section', async ({ page }) => {
+  await page.locator('#skills').scrollIntoViewIfNeeded();
+  await expect(page.locator('.skill-group')).toHaveCount(skillGroups.length);
+  const group = page.locator('.skill-group').filter({ has: page.getByRole('heading', { name: 'AI-assisted development', exact: true }) });
+  await expect(group.locator('a.practice-link')).toHaveCount(skillGroups.find((entry) => entry.title === 'AI-assisted development')!.skills.length);
+  await group.getByRole('link', { name: /^Claude Code/ }).click();
+  await expect(page).toHaveURL(/#ai-tools$/);
+  await expect(page.locator('#ai-tools')).toBeInViewport();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
+});
+
 test('contact section offers direct, usable links', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Contact', exact: true }).click();
   const links = page.getByRole('navigation', { name: 'Contact links' });
