@@ -79,6 +79,7 @@ export const identity = {
   email: 'velojoshemmanuel30@gmail.com',
   github: 'https://github.com/ProgJosh',
   linkedin: 'https://www.linkedin.com/in/emmanuel-josh-velo',
+  calendly: 'https://calendly.com/progjosh',
   facebook: 'https://www.facebook.com/heyiamjosh',
   whatsapp: 'https://wa.me/639752162057',
   viber: 'https://viber.me/639752162057',

@@ -93,8 +93,13 @@ test('AI skill tags in the skills section jump to the AI tools section', async (
 test('contact section offers direct, usable links', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Contact', exact: true }).click();
   const links = page.getByRole('navigation', { name: 'Contact links' });
-  await expect(links.getByRole('link')).toHaveCount(identity.instagram ? 7 : 6);
+  await expect(links.getByRole('link')).toHaveCount(identity.instagram ? 8 : 7);
   await expect(links.getByRole('link', { name: /Email/ })).toHaveAttribute('href', 'mailto:velojoshemmanuel30@gmail.com');
+  const scheduleLink = links.getByRole('link', { name: /Schedule a call/ });
+  await expect(scheduleLink).toHaveAttribute('href', identity.calendly);
+  await expect(scheduleLink).toHaveAttribute('target', '_blank');
+  await expect(scheduleLink).toHaveAttribute('rel', /noopener/);
+  await expect(scheduleLink).toHaveAttribute('aria-haspopup', 'dialog');
   await expect(links.getByRole('link', { name: /LinkedIn/ })).toHaveAttribute('href', /linkedin\.com/);
   await expect(links.getByRole('link', { name: /GitHub/ })).toHaveAttribute('href', /github\.com/);
   await expect(links.getByRole('link', { name: /Facebook/ })).toHaveAttribute('href', /facebook\.com/);
@@ -112,6 +117,39 @@ test('contact section offers direct, usable links', async ({ page }) => {
   if (identity.instagram) await expect(links.getByRole('link', { name: /Instagram/ })).toHaveAttribute('href', identity.instagram);
   else await expect(links.getByRole('link', { name: /Instagram/ })).toHaveCount(0);
   await expect(page.locator('#contact form')).toHaveCount(0);
+});
+
+test('Calendly links open the scheduling popup and fall back to a new tab', async ({ page, context }) => {
+  const heroLink = page.locator('.hero-links').getByRole('link', { name: /Book a call/ });
+  const footerLink = page.locator('.footer').getByRole('link', { name: /Book a call/ });
+  for (const link of [heroLink, footerLink]) {
+    await expect(link).toHaveAttribute('href', identity.calendly);
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', /noopener/);
+  }
+
+  // The third-party widget stays unloaded until a visitor shows interest.
+  expect(await page.locator('script[src*="calendly"]').count()).toBe(0);
+
+  await page.route('https://assets.calendly.com/**', (route) => route.request().url().endsWith('.js')
+    ? route.fulfill({ contentType: 'application/javascript', body: 'window.Calendly = { initPopupWidget: (options) => { document.body.dataset.calendlyUrl = options.url; } };' })
+    : route.fulfill({ contentType: 'text/css', body: '' }));
+  await heroLink.click();
+  await expect(page.locator('body')).toHaveAttribute('data-calendly-url', identity.calendly);
+  await expect(page).toHaveURL(/\/$/);
+  expect(await page.locator('script[src*="calendly"]').count()).toBe(1);
+
+  // If the widget cannot load, the same click opens Calendly in a new tab instead.
+  await page.unroute('https://assets.calendly.com/**');
+  await page.route('https://assets.calendly.com/**', (route) => route.abort());
+  await page.route('https://calendly.com/**', (route) => route.fulfill({ contentType: 'text/html', body: '<title>Calendly</title>' }));
+  await page.reload();
+  await page.waitForLoadState('networkidle');
+  const newTab = context.waitForEvent('page');
+  await page.locator('.hero-links').getByRole('link', { name: /Book a call/ }).click();
+  expect((await newTab).url()).toContain('calendly.com/progjosh');
+  // The blocked widget request is the failure under test, so its console error is expected.
+  consoleErrors.get(page)?.splice(0);
 });
 
 test('recent project case studies and technology logos are usable on desktop and mobile', async ({ page, request }) => {

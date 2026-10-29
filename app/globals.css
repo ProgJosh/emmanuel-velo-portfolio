@@ -368,7 +368,7 @@ section[id] { scroll-margin-top: 82px; }
   .hero h1 { font-size: clamp(3.05rem, 16.5vw, 4.7rem); }
   .hero-intro { line-height: 1.55; }
   .hero-links { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
-  .hero-links a:first-child { grid-column: 1 / -1; }
+  .hero-links a:first-child, .hero-links a:last-child { grid-column: 1 / -1; }
   .hero-actions { display: grid; grid-template-columns: 1fr; }
   .hero-actions .button { width: 100%; }
   .hero-system { margin-right: 10px; }

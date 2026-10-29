@@ -22,6 +22,7 @@ describe('portfolio data integrity', () => {
     expect(identity.email).toMatch(/@/);
     expect(identity.github).toMatch(/^https:\/\/github\.com\//);
     expect(identity.linkedin).toMatch(/^https:\/\/www\.linkedin\.com\//);
+    expect(identity.calendly).toMatch(/^https:\/\/calendly\.com\/[\w-]+$/);
     expect(identity.whatsapp).toMatch(/^https:\/\/wa\.me\/\d+$/);
     expect(identity.viber).toMatch(/^https:\/\/viber\.me\/\d+$/);
     expect(identity.whatsapp.split('/').at(-1)).toBe(identity.viber.split('/').at(-1));

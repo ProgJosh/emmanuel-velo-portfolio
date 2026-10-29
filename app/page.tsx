@@ -2,6 +2,7 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   BriefcaseBusiness,
+  CalendarDays,
   Code2,
   Mail,
   MessageCircle,
@@ -9,6 +10,7 @@ import {
   UsersRound,
 } from 'lucide-react';
 import { AiTools } from '@/components/ai-tools';
+import { CalendlyLink } from '@/components/calendly-link';
 import { PortfolioErrorBoundary } from '@/components/portfolio-error-boundary';
 import { ProjectShowcase } from '@/components/project-showcase';
 import { RevealController, SiteNavigation } from '@/components/site-shell';
@@ -46,6 +48,7 @@ export default function Home() {
               <a href={identity.resume} download>Résumé <ArrowDownRight aria-hidden="true" /></a>
               <a href={identity.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight aria-hidden="true" /></a>
               <a href={identity.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight aria-hidden="true" /></a>
+              <CalendlyLink>Book a call <CalendarDays aria-hidden="true" /></CalendlyLink>
             </div>
           </div>
 
@@ -133,10 +136,11 @@ export default function Home() {
             <div className="contact-copy" data-reveal>
               <p className="eyebrow">05 / Contact</p>
               <h2 id="contact-title">Let’s connect.</h2>
-              <p>For web development roles, project conversations, or collaboration, email me directly. You can also find my work and professional updates through the links here.</p>
+              <p>For web development roles, project conversations, or collaboration, email me directly or book a call. You can also find my work and professional updates through the links here.</p>
             </div>
             <nav className="contact-direct" aria-label="Contact links" data-reveal>
               <a href={`mailto:${identity.email}`}><Mail aria-hidden="true" /><span>Email<strong>{identity.email}</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
+              <CalendlyLink><CalendarDays aria-hidden="true" /><span>Schedule a call<strong>Calendly</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></CalendlyLink>
               <a href={identity.linkedin} target="_blank" rel="noreferrer"><BriefcaseBusiness aria-hidden="true" /><span>Professional profile<strong>LinkedIn</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
               <a href={identity.github} target="_blank" rel="noreferrer"><Code2 aria-hidden="true" /><span>Projects and source code<strong>GitHub</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
               <a href={identity.facebook} target="_blank" rel="noreferrer"><UsersRound aria-hidden="true" /><span>Personal updates<strong>Facebook</strong></span><ArrowUpRight className="contact-link-arrow" aria-hidden="true" /></a>
@@ -155,7 +159,7 @@ export default function Home() {
           <p>{identity.extendedRole} · {identity.location}</p>
         </div>
         <div className="footer-grid">
-          <div><span>Contact</span><a href={`mailto:${identity.email}`}>{identity.email}</a><a href={identity.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a><a href={identity.github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={identity.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp ↗</a><a href={identity.viber} target="_blank" rel="noopener noreferrer">Viber ↗</a>{identity.instagram && <a href={identity.instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a>}</div>
+          <div><span>Contact</span><a href={`mailto:${identity.email}`}>{identity.email}</a><CalendlyLink>Book a call ↗</CalendlyLink><a href={identity.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a><a href={identity.github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={identity.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp ↗</a><a href={identity.viber} target="_blank" rel="noopener noreferrer">Viber ↗</a>{identity.instagram && <a href={identity.instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a>}</div>
           <nav aria-label="Footer navigation"><span>Navigate</span>{navigation.map((item) => <a key={item.id} href={`#${item.id}`}>{item.label}</a>)}</nav>
           <div><span>Documents</span><a href={identity.resume} download>Résumé <ArrowDownRight aria-hidden="true" /></a><a href="#home">Back to top ↑</a></div>
         </div>

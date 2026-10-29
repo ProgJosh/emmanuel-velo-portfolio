@@ -12,6 +12,7 @@ A professional, responsive portfolio for Emmanuel Josh Velo, presenting verified
 - AI-assisted development section listing the coding agents used in project work and upskilling, each tied to a repository or workspace trace
 - Accessible project-detail dialog and keyboard-friendly project controls
 - Direct email and professional contact links
+- Calendly scheduling in the hero, contact section, and footer: a plain link that opens Calendly's popup, loading its widget only when a visitor shows interest and falling back to a new tab if it cannot load
 - Downloadable two-page PDF resume
 - Open Graph image, favicon, canonical configuration, Person structured data, sitemap, and robots rules
 - Reduced-motion support, keyboard focus states, responsive images, and lazy-loaded below-fold media
@@ -45,6 +46,10 @@ The sync imports the Alumni Gallery and Alder & Tide names, demo links, optimize
 Review the resulting Git diff before committing. The script fails if the expected HTML structure changes; it never modifies the freelance portfolio or deploys either site. It refreshes these two tracked projects and technology groups, but does not automatically discover new projects or rewrite technical claims. Add new case studies and review changed project responsibilities, stacks, test results, and production limits in `lib/portfolio-data.ts` when the underlying apps change. Alder & Tide replaces the earlier BookSync entry because both refer to the same booking repository and live URL.
 
 Verified sources: `Portfolio/index.html`, its Alumni and Alder detail pages, and the local Alumni Gallery, Booking System, and Vertex Legacy manifests/documentation. Newer Next.js, NestJS, PostgreSQL, and Prisma skills are supported by Vertex Legacy; they link directly to its repository without copying financial or client claims into this portfolio.
+
+## Calendly
+
+The booking URL lives in `identity.calendly` in `lib/portfolio-data.ts`. `components/calendly-link.tsx` renders a normal link that also opens Calendly's popup widget. The widget script and stylesheet load from `assets.calendly.com` on first hover, focus, or click, never on page load. If they fail to load, the link opens Calendly in a new tab. To point at a specific event type, change the URL to `https://calendly.com/progjosh/<event-type>`.
 
 ## Updating the AI tools section
 
