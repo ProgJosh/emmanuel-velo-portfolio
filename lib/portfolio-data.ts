@@ -274,7 +274,7 @@ export const aiToolGroups: AiToolGroup[] = [
   {
     id: 'projects',
     title: 'Used in project work',
-    description: 'Agents that contributed to code or configuration in my repositories.',
+    description: 'Agents I have used while building projects.',
     tools: [
       {
         id: 'claude-code',
@@ -309,6 +309,26 @@ export const aiToolGroups: AiToolGroup[] = [
         evidence: 'Generated .openai/hosting.json and the Sites Vite plugin in both repositories.',
         evidenceUrl: 'https://github.com/ProgJosh/NexaCart/blob/main/.openai/hosting.json',
       },
+      {
+        id: 'openai-codex',
+        inSkills: true,
+        name: 'OpenAI Codex',
+        maker: 'OpenAI',
+        kind: 'Coding agent',
+        usedFor: 'Used OpenAI’s coding agent while building the BakeSmart2D prototype, a 2D bakery learning game.',
+        projects: ['BakeSmart2D'],
+        evidence: 'Local installation and configuration only; no public repository link.',
+      },
+      {
+        id: 'opencode',
+        inSkills: true,
+        name: 'OpenCode',
+        maker: 'Open source',
+        kind: 'Terminal coding agent',
+        usedFor: 'Used the open-source terminal coding agent on personal projects, working from the command line.',
+        projects: ['Personal projects'],
+        evidence: 'Local installation and configuration only; no public repository link.',
+      },
     ],
   },
   {
@@ -325,26 +345,6 @@ export const aiToolGroups: AiToolGroup[] = [
         usedFor: 'Evaluated as an alternative AI coding assistant, with a project rules folder set up in the workspace.',
         projects: ['Tool evaluation'],
         evidence: 'Local workspace configuration only; no public repository link.',
-      },
-      {
-        id: 'openai-codex',
-        inSkills: true,
-        name: 'OpenAI Codex',
-        maker: 'OpenAI',
-        kind: 'Coding agent',
-        usedFor: 'Worked with OpenAI’s coding agent for drafting and reviewing code changes while building my skills with agent-driven workflows.',
-        projects: ['Hands-on practice'],
-        evidence: 'Local installation and configuration only; no public repository link.',
-      },
-      {
-        id: 'opencode',
-        inSkills: true,
-        name: 'OpenCode',
-        maker: 'Open source',
-        kind: 'Terminal coding agent',
-        usedFor: 'Worked with the open-source terminal agent to learn how a model-agnostic, command-line workflow compares with editor-based assistants.',
-        projects: ['Hands-on practice'],
-        evidence: 'Local installation and configuration only; no public repository link.',
       },
       {
         id: 'kilo-code',
