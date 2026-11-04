@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { siteUrl } from '@/lib/site-url';
 
-const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-const siteUrl = configuredSiteUrl && /^https?:\/\//.test(configuredSiteUrl)
-  ? configuredSiteUrl.replace(/\/$/, '')
-  : 'http://localhost:3000';
 const configuredBasePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, '') ?? '';
 const publicAsset = (path: string) => `${configuredBasePath}${path}`;
 
