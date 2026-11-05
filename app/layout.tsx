@@ -52,7 +52,7 @@ const personSchema = {
   name: 'Emmanuel Josh Velo',
   url: siteUrl,
   jobTitle: 'Web Developer',
-  email: 'mailto:velojoshemmanuel30@gmail.com',
+  email: 'mailto:veloemmanueljosh15@gmail.com',
   address: { '@type': 'PostalAddress', addressCountry: 'PH' },
   sameAs: ['https://github.com/ProgJosh', 'https://www.linkedin.com/in/emmanuel-josh-velo', 'https://www.facebook.com/heyiamjosh'],
   knowsAbout: ['Web development', 'Software engineering', 'Responsive design', 'React', 'TypeScript', 'Laravel', 'PHP', 'MySQL', 'AI-assisted development'],

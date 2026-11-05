@@ -76,7 +76,7 @@ export const identity = {
   extendedRole: 'Web Developer',
   location: 'Lubao, Philippines',
   availability: 'Open to Web Developer opportunities',
-  email: 'velojoshemmanuel30@gmail.com',
+  email: 'veloemmanueljosh15@gmail.com',
   github: 'https://github.com/ProgJosh',
   linkedin: 'https://www.linkedin.com/in/emmanuel-josh-velo',
   calendly: 'https://calendly.com/progjosh',

@@ -25,7 +25,7 @@ export class PortfolioErrorBoundary extends Component<Props, State> {
           <p>You can still review Emmanuel’s work on GitHub or contact him directly by email.</p>
           <div className="button-row">
             <a className="button button-primary" href="https://github.com/ProgJosh">View GitHub</a>
-            <a className="button button-secondary" href="mailto:velojoshemmanuel30@gmail.com">Send email</a>
+            <a className="button button-secondary" href="mailto:veloemmanueljosh15@gmail.com">Send email</a>
           </div>
         </section>
       );

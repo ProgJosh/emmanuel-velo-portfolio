@@ -88,7 +88,7 @@ frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="main"
 doc.addPageTemplates([PageTemplate(id="resume", frames=[frame], onPage=draw_page)])
 
 contact = (
-    '<link href="mailto:velojoshemmanuel30@gmail.com" color="#5D6864">velojoshemmanuel30@gmail.com</link><br/>'
+    '<link href="mailto:veloemmanueljosh15@gmail.com" color="#5D6864">veloemmanueljosh15@gmail.com</link><br/>'
     '<link href="https://github.com/ProgJosh" color="#5D6864">github.com/ProgJosh</link><br/>'
     '<link href="https://www.linkedin.com/in/emmanuel-josh-velo" color="#5D6864">linkedin.com/in/emmanuel-josh-velo</link><br/>'
     'Philippines'

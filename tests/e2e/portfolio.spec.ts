@@ -94,7 +94,7 @@ test('contact section offers direct, usable links', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Contact', exact: true }).click();
   const links = page.getByRole('navigation', { name: 'Contact links' });
   await expect(links.getByRole('link')).toHaveCount(identity.instagram ? 8 : 7);
-  await expect(links.getByRole('link', { name: /Email/ })).toHaveAttribute('href', 'mailto:velojoshemmanuel30@gmail.com');
+  await expect(links.getByRole('link', { name: /Email/ })).toHaveAttribute('href', 'mailto:veloemmanueljosh15@gmail.com');
   const scheduleLink = links.getByRole('link', { name: /Schedule a call/ });
   await expect(scheduleLink).toHaveAttribute('href', identity.calendly);
   await expect(scheduleLink).toHaveAttribute('target', '_blank');
