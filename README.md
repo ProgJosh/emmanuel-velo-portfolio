@@ -92,7 +92,7 @@ NEXT_PUBLIC_BASE_PATH=/repository-name
 
 ## Resume generation
 
-The checked PDF is available at `public/resume/emmanuel-josh-velo-resume.pdf`. To rebuild it after updating verified resume data:
+The checked PDF is available at `public/resume/emmanuel-josh-velo-resume.pdf`. As of November 2026 it is the hand-edited `VeloEmmanuel-Josh_Resume_UPDATED.pdf`, which is newer than `scripts/build_resume.py`. Running that script generates the older resume, so do not copy its output over the public file unless the script's data is brought up to date first. To rebuild it after updating verified resume data:
 
 ```powershell
 python scripts/build_resume.py
