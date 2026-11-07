@@ -90,6 +90,17 @@ test('AI skill tags in the skills section jump to the AI tools section', async (
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
 });
 
+test('BakeSmart 2D leads the projects as the latest client work', async ({ page }) => {
+  await page.locator('#projects').scrollIntoViewIfNeeded();
+  await expect(page.locator('.orbit-project h3')).toHaveText('BakeSmart 2D');
+  await page.locator('.orbit-project').getByRole('button', { name: 'View Project Details' }).click();
+  const dialog = page.getByRole('dialog');
+  await expect(dialog.getByRole('heading', { name: 'BakeSmart 2D', exact: true })).toBeVisible();
+  await expect(dialog).toContainText('Completed v1.0');
+  await expect(dialog.getByRole('link', { name: /Prototype source/ })).toHaveAttribute('href', 'https://github.com/ProgJosh/BakeSmart2D');
+  await page.getByRole('button', { name: 'Close' }).click();
+});
+
 test('contact section offers direct, usable links', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Contact', exact: true }).click();
   const links = page.getByRole('navigation', { name: 'Contact links' });

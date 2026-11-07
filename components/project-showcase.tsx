@@ -28,7 +28,7 @@ function ProjectLinks({ project }: { project: Project }) {
         <span className="project-no-demo">No public web demo</span>
       )}
       <a href={project.sourceUrl} target="_blank" rel="noreferrer">
-        Source <Code2 aria-hidden="true" />
+        {project.sourceLabel ?? 'Source'} <Code2 aria-hidden="true" />
       </a>
     </div>
   );

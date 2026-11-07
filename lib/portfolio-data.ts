@@ -18,6 +18,8 @@ export type Project = {
   imagePosition?: string;
   liveUrl?: string;
   sourceUrl: string;
+  // Shown instead of "Source" when the public repository is not the shipped product.
+  sourceLabel?: string;
   targetUsers: string;
   responsibilities: string[];
   decisions: string[];
@@ -98,6 +100,30 @@ export const navigation = [
 ] as const;
 
 export const projects: Project[] = [
+  {
+    id: 'bakesmart2d',
+    name: 'BakeSmart 2D',
+    category: 'Educational story game · Windows & Android',
+    filter: 'Cross-platform',
+    summary: 'An educational story game built in Unity that turns a bread-making module into seven weekly chapters, hands-on mini-games, and a real-time oven bake, for Windows and Android.',
+    problem: 'Help students practise a bread-making module on shared laptops and Android phones, with feedback that explains every mistake instead of only marking it.',
+    role: 'Game development in Unity: story system, mini-games, oven simulation, scoring, and Windows and Android delivery',
+    technologies: ['Unity 6', 'C#', 'URP 2D', 'TextMeshPro', 'ScriptableObjects', 'Android', 'NSIS installer'],
+    features: ['Story mode: seven weekly chapters and a finale', 'Sort, measure, order, and quiz mini-games', 'Real-time oven baking simulation', 'Scores, stars, badges, and three difficulty levels', 'Free Bake with 17 replayable mini-games'],
+    challenge: 'Seven curriculum lessons and a finale had to fit a short delivery window and run well on shared Windows laptops and on Android phones with different screen shapes.',
+    approach: 'I built four data-driven mini-game templates once, kept story and round content in ScriptableObject assets, generated scenes with an editor builder, and added one-click Android, Windows, and installer builds.',
+    status: 'Completed v1.0 for the client · Windows installer and Android app, no public download',
+    image: publicAsset('/project-images/bakesmart2d-oven.webp'),
+    imageAlt: 'BakeSmart 2D oven mini-game with a tray of golden pandesal, temperature controls, and a recipe card checklist',
+    sourceUrl: 'https://github.com/ProgJosh/BakeSmart2D',
+    sourceLabel: 'Prototype source',
+    targetUsers: 'Students learning bread-making on shared laptops and Android phones',
+    responsibilities: ['Built the story system: dialogue, choices, characters, and chapter flow', 'Created sort, measure, order, and quiz templates plus the oven simulation', 'Implemented scoring, stars, badges, difficulty levels, and Free Bake replay', 'Automated scene generation and Windows, installer, and Android builds'],
+    decisions: ['Kept lesson content in data assets so new weeks needed no new code', 'Explained every wrong answer with a short reason', 'Used original background music instead of copyrighted recordings', 'Added a progress reset for shared classroom computers'],
+    testing: 'Updates were compiled and checked in Unity, then play-tested on a Windows laptop and an Android phone. The oven bake and the finale were played through end to end before v1.0.',
+    outcome: 'A complete v1.0 game with seven chapters, a finale, and 17 replayable mini-games, delivered as a Windows installer and an Android app. It grew from a Phaser prototype that passed the client’s thesis defense.',
+    lessons: 'Building reusable templates first turned seven lessons into content work, which made a short delivery schedule manageable.',
+  },
   {
     id: 'alumni-gallery',
     name: freelanceSnapshot.projects.alumni.name,
@@ -222,29 +248,6 @@ export const projects: Project[] = [
     lessons: 'Strong brand presentation works best when product discovery remains predictable, accessible, and fast.',
   },
   {
-    id: 'bakesmart2d',
-    name: 'BakeSmart2D',
-    category: 'Cross-platform 2D application',
-    filter: 'Cross-platform',
-    summary: 'A Phaser-based bakery learning game delivered from one TypeScript codebase to web, Windows, and Android test builds.',
-    problem: 'Package the same interactive 2D experience for browser, desktop, and mobile use while keeping core gameplay available offline.',
-    role: 'Game implementation, responsive input support, and cross-platform packaging',
-    technologies: ['Phaser 3', 'TypeScript', 'Vite', 'Electron', 'Capacitor', 'Android'],
-    features: ['Shared web game build', 'Windows installer workflow', 'Android application wrapper', 'Offline core gameplay', 'Touch and landscape support'],
-    challenge: 'Desktop and mobile packaging have different runtime, input, signing, and installation constraints even when they share the same web build.',
-    approach: 'Vite produces a relative-path web build that Electron packages for Windows and Capacitor synchronizes into the Android wrapper.',
-    status: 'Packaged Windows and Android test builds · no public web demo',
-    image: publicAsset('/project-images/bakesmart2d.png'),
-    imageAlt: 'BakeSmart2D illustrated bakery game splash screen',
-    sourceUrl: 'https://github.com/ProgJosh/BakeSmart2D',
-    targetUsers: 'Learners using a browser, Windows computer, or Android device',
-    responsibilities: ['Implemented the Phaser game flow', 'Configured web and desktop builds', 'Integrated the Capacitor Android wrapper', 'Documented installation and physical-device QA'],
-    decisions: ['Used one web build as the platform source', 'Kept core gameplay offline-capable', 'Represented the Android artifact as debug-signed for testing, not as a store release'],
-    testing: 'Strict TypeScript and Vite builds validate the shared application. Release checks cover Windows launch and installation plus Android launch, landscape layout, touch, navigation, and background/resume on a physical device.',
-    outcome: 'A practical cross-platform delivery workflow that reuses one game codebase while keeping platform-specific release limits documented.',
-    lessons: 'A shared codebase reduces duplication, but each platform still needs explicit packaging and device-level acceptance checks.',
-  },
-  {
     id: 'properties-portal',
     name: 'Properties Management Portal',
     category: 'Full-stack rental management',
@@ -316,8 +319,8 @@ export const aiToolGroups: AiToolGroup[] = [
         name: 'OpenAI Codex',
         maker: 'OpenAI',
         kind: 'Coding agent',
-        usedFor: 'Used OpenAI’s coding agent while building the BakeSmart2D prototype, a 2D bakery learning game.',
-        projects: ['BakeSmart2D'],
+        usedFor: 'Used OpenAI’s coding agent while building the BakeSmart 2D prototype, a 2D bakery learning game.',
+        projects: ['BakeSmart 2D'],
         evidence: 'Local installation and configuration only; no public repository link.',
       },
       {
@@ -376,7 +379,7 @@ export const skillGroups: SkillGroup[] = [
   })),
   { title: 'Application engineering', description: 'Rules, permissions, and persistence behind the interface.', skills: practices(['Hono', 'Livewire', 'Zod validation', 'REST/API integration', 'Stripe integration', 'Web Storage', 'IndexedDB', 'Data modeling']), evidence: 'Alumni Gallery API, Laravel rental workflows, and Alder & Tide reservation rules. Production integration limits are documented in each case study.' },
   { title: 'Testing & quality', description: 'Automated and manual checks focused on user workflows.', skills: practices(['Vitest', 'Playwright', 'Testing Library', 'Node test runner', 'Accessibility checks']), evidence: 'Repository test suites cover domain rules, responsive layouts, and critical flows.' },
-  { title: 'Cross-platform development', description: 'Shared web code packaged for desktop and mobile.', skills: practices(['Phaser', 'Electron', 'Capacitor', 'Android packaging', 'Offline web builds']), evidence: 'BakeSmart2D Windows and Android workflows.' },
+  { title: 'Game & cross-platform development', description: 'Games and shared code packaged for desktop and mobile.', skills: practices(['Unity', 'C#', 'Phaser', 'Electron', 'Capacitor', 'Android builds', 'Windows installers']), evidence: 'BakeSmart 2D: a Phaser prototype, then the full Unity game for Windows and Android.' },
   {
     title: 'AI-assisted development',
     description: 'Directing coding agents, then verifying the result with tests.',
