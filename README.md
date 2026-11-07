@@ -47,6 +47,10 @@ Review the resulting Git diff before committing. The script fails if the expecte
 
 Verified sources: `Portfolio/index.html`, its Alumni and Alder detail pages, and the local Alumni Gallery, Booking System, and Vertex Legacy manifests/documentation. Newer Next.js, NestJS, PostgreSQL, and Prisma skills are supported by Vertex Legacy; they link directly to its repository without copying financial or client claims into this portfolio.
 
+## Analytics
+
+Google Analytics 4 (gtag.js) is loaded from `app/layout.tsx` using the measurement ID in `lib/analytics.ts`, which belongs to the "Company Portfolio" web stream. It loads only in production builds, so local development and the browser tests send no visits. Use one Google tag per page: do not also add a Tag Manager container that tags the same stream, or every visit is counted twice.
+
 ## Calendly
 
 The booking URL lives in `identity.calendly` in `lib/portfolio-data.ts`. `components/calendly-link.tsx` renders a normal link that also opens Calendly's popup widget. The widget script and stylesheet load from `assets.calendly.com` on first hover, focus, or click, never on page load. If they fail to load, the link opens Calendly in a new tab. To point at a specific event type, change the URL to `https://calendly.com/progjosh/<event-type>`.

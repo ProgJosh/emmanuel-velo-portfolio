@@ -1,9 +1,14 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { gaMeasurementId } from '../lib/analytics';
 import { aiPrinciples, aiToolGroups, identity, navigation, projects, publicAsset, skillGroups } from '../lib/portfolio-data';
 
 describe('portfolio data integrity', () => {
+  it('uses a well-formed Google Analytics measurement ID', () => {
+    expect(gaMeasurementId).toMatch(/^G-[A-Z0-9]{10}$/);
+  });
+
   it('uses unique navigation and project identifiers', () => {
     expect(new Set(navigation.map((item) => item.id)).size).toBe(navigation.length);
     expect(new Set(projects.map((project) => project.id)).size).toBe(projects.length);
