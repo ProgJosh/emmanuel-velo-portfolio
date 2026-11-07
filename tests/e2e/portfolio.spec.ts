@@ -98,6 +98,7 @@ test('BakeSmart 2D leads the projects as the latest client work', async ({ page 
   await expect(dialog.getByRole('heading', { name: 'BakeSmart 2D', exact: true })).toBeVisible();
   await expect(dialog).toContainText('Completed v1.0');
   await expect(dialog.getByRole('link', { name: /Prototype source/ })).toHaveAttribute('href', 'https://github.com/ProgJosh/BakeSmart2D');
+  await expect(dialog.getByRole('link', { name: /Live demo/ })).toHaveAttribute('href', 'https://joshvelo.vercel.app/play/bakesmart/');
   await page.getByRole('button', { name: 'Close' }).click();
 });
 
