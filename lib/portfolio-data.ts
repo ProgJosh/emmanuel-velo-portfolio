@@ -16,6 +16,8 @@ export type Project = {
   image: string;
   imageAlt: string;
   imagePosition?: string;
+  detailImage?: { src: string; alt: string };
+  experiencePeriod?: string;
   liveUrl?: string;
   sourceUrl: string;
   // Shown instead of "Source" when the public repository is not the shipped product.
@@ -149,6 +151,33 @@ export const projects: Project[] = [
     testing: 'The repository includes Vitest API tests and a Chrome browser-check script. TypeScript and Vite validate the build. Cloudflare hosts the fictional demo; PostgreSQL, Hyperdrive, and private R2 integration still require production configuration and verification.',
     outcome: 'A working community-gallery demonstration with clear browsing and contribution flows, without presenting fictional identities or unverified production integrations as a real school deployment.',
     lessons: 'Community interfaces need clear content ownership and review feedback alongside straightforward search and navigation.',
+  },
+  {
+    id: 'fleetora',
+    name: 'Fleetora',
+    category: 'Transport & logistics · Personal project',
+    filter: 'Business systems',
+    summary: 'A dispatch workspace for keeping track of customers, drivers, vehicles and upcoming document renewals.',
+    role: 'Full-stack development of fleet records, expiry tracking and organization access',
+    technologies: ['React', 'TypeScript', 'Hono', 'Cloudflare D1', 'Vite', 'Cloudflare Workers', 'Zod'],
+    features: ['Customer and location directories', 'Driver license expiry', 'Vehicle registration and insurance tracking', 'Maintenance history in Philippine pesos'],
+    problem: 'Give dispatchers one place to see which drivers and vehicles need paperwork renewed before their next assignment.',
+    challenge: 'Keep fleet records scoped to the right organization when users work across multiple teams.',
+    approach: 'The Hono API checks organization membership and roles before reading or changing fleet records.',
+    status: 'Frontend preview · Backend in development',
+    experiencePeriod: 'Nov 2026 – present',
+    image: publicAsset('/projects/fleetora-landing.webp'),
+    imageAlt: 'Fleetora landing page for freight and last-mile delivery teams',
+    detailImage: { src: publicAsset('/projects/fleetora-login.webp'), alt: 'Fleetora sign-in screen with the fleet operations overview beside the account form' },
+    imagePosition: 'center top',
+    liveUrl: 'https://fleetora-frontend-demo.joshua27emmanuel30.workers.dev/',
+    sourceUrl: 'https://github.com/ProgJosh/Fleetora',
+    targetUsers: 'Dispatchers and fleet managers handling freight and last-mile deliveries',
+    responsibilities: ['Designed and built the React workspace', 'Implemented fleet and driver records', 'Connected role-based API access to D1 storage'],
+    decisions: ['Track license, registration and insurance dates alongside their records', 'Store maintenance costs in centavos'],
+    testing: 'Vitest covers authentication, fleet records and input validation. The public Cloudflare demo serves the frontend with account forms disabled.',
+    outcome: 'Visitors can explore the frontend while work continues on bookings and shipment records.',
+    lessons: 'Keeping expiry dates beside driver and vehicle records makes renewals easier to identify during dispatch preparation.',
   },
   {
     id: 'nexacart',

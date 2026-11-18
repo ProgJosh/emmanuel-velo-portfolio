@@ -1,3 +1,5 @@
+import portrait from '../emmanuel-josh-velo.png';
+import { identity } from '@/lib/portfolio-data';
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import './globals.css';
@@ -51,13 +53,14 @@ export const viewport: Viewport = {
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Emmanuel Josh Velo',
+  name: identity.name,
   url: siteUrl,
-  jobTitle: 'Web Developer',
+  image: new URL(portrait.src, siteUrl).href,
+  jobTitle: identity.role,
   email: 'mailto:veloemmanueljosh15@gmail.com',
   address: { '@type': 'PostalAddress', addressCountry: 'PH' },
-  sameAs: ['https://github.com/ProgJosh', 'https://www.linkedin.com/in/emmanuel-josh-velo', 'https://www.facebook.com/heyiamjosh'],
-  knowsAbout: ['Web development', 'Software engineering', 'Responsive design', 'React', 'TypeScript', 'Laravel', 'PHP', 'MySQL', 'AI-assisted development'],
+  sameAs: [identity.github, identity.linkedin, identity.facebook, identity.instagram].filter(Boolean),
+  knowsAbout: ['Web development', 'Software engineering', 'Responsive design', 'React', 'TypeScript', 'Laravel', 'PHP', 'MySQL', 'Next.js', 'PostgreSQL', 'Tailwind CSS', 'AI-assisted development'],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

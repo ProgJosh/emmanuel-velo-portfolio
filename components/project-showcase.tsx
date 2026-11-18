@@ -51,6 +51,11 @@ function ProjectDetail({ project }: { project: Project }) {
       <div className="case-study-media">
         <Image src={project.image} alt={project.imageAlt} fill loading="eager" sizes="(max-width: 720px) 100vw, 1000px" style={{ objectFit: 'cover', objectPosition: project.imagePosition }} />
       </div>
+      {project.detailImage && (
+        <div className="case-study-media">
+          <Image src={project.detailImage.src} alt={project.detailImage.alt} fill sizes="(max-width: 720px) 100vw, 1000px" style={{ objectFit: 'contain' }} />
+        </div>
+      )}
       <div className="case-study-grid">
         <section>
           <p className="case-label">Problem / objective</p>
@@ -146,7 +151,9 @@ export function ProjectShowcase() {
           <span />
         </div>
         {visibleProjects.map((project, index) => {
-          const angle = (index / visibleProjects.length) * Math.PI * 2 - Math.PI / 2;
+          // Stagger even rings so the lowest selector clears the navigation buttons.
+          const slot = visibleProjects.length % 2 === 0 ? index + 0.5 : index;
+          const angle = (slot / visibleProjects.length) * Math.PI * 2 - Math.PI / 2;
           const position = {
             '--orbit-x': `${50 + Math.cos(angle) * 46}%`,
             '--orbit-y': `${50 + Math.sin(angle) * 46}%`,
@@ -213,6 +220,18 @@ export function ProjectShowcase() {
           </article>
         ))}
       </div>
+
+      <section className="project-experience" aria-labelledby="project-experience-title">
+        <h3 id="project-experience-title">Project experience</h3>
+        {projects.filter((project) => project.experiencePeriod).map((project) => (
+          <article key={project.id}>
+            <p className="case-label">{project.experiencePeriod} · Personal project</p>
+            <h4>{project.name}</h4>
+            <p>{project.role}. {project.status}.</p>
+            <ProjectLinks project={project} />
+          </article>
+        ))}
+      </section>
 
       <Dialog open={Boolean(detailProject)} onOpenChange={(open) => !open && setDetailProject(null)}>
         <DialogContent className="project-dialog">

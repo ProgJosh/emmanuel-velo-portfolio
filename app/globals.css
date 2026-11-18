@@ -440,3 +440,16 @@ a.practice-tag { display: flex; align-items: center; gap: .5rem; text-decoration
 a.practice-tag svg { flex-shrink: 0; color: var(--accent); transition: transform .2s ease; }
 a.practice-tag:focus-visible { border-color: var(--accent); background: var(--secondary); }
 @media (hover: hover) { a.practice-tag:hover { border-color: var(--accent); background: var(--secondary); } a.practice-tag:hover svg { transform: translate(2px, 2px); } }
+
+.project-experience { margin-block-start: 3rem; border-top: 1px solid currentColor; padding-top: 1.5rem; }
+.project-experience article { max-width: 62ch; }
+.project-experience article > p { margin-block: .75rem; }
+.case-study-media + .case-study-media { margin-top: 1rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .orbit-controls button svg, .project-links a svg { transition: transform 160ms ease-out; }
+  .orbit-controls button:first-child:is(:hover, :focus-visible) svg { transform: translateX(-2px); }
+  .orbit-controls button:last-child:is(:hover, :focus-visible) svg { transform: translateX(2px); }
+  .project-links a:is(:hover, :focus-visible) svg { transform: translateY(-2px); }
+  .project-links a:active svg, .orbit-controls button:active svg { transform: scale(.88); }
+}
